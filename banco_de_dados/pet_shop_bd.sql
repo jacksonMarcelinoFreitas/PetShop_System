@@ -1,3 +1,6 @@
+CREATE DATABASE pet_shop_bd;
+USE pet_shop_bd;
+
 CREATE TABLE CLIENTE(
 	cpfCliente varchar (50) PRIMARY KEY NOT NULL,
     nomeCliente varchar (20),
