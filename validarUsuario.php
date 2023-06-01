@@ -2,15 +2,16 @@
 
     require_once('./connection.php');
 
-    $connection = connection();
 
     if($_GET['tela'] == 1) {
-        validarLogin($connection);
+        validarLogin();
     }else if($_GET['tela'] == 2){
-        cadastrarUsuario($connection);
+        cadastrarUsuario();
     }
 
-    function validarLogin($connection){
+    function validarLogin(){
+
+    $connection = connection();
 
         //verifica se possui todos os parâmetros 
         if(isset($_POST['form'])){
@@ -22,14 +23,14 @@
 
         try{
             $sql = $connection->prepare("SELECT * FROM usuario WHERE email = :email and senha = :senha");
-            $sql->bindValue(':email', $email);
-            $sql->bindValue(':senha', $senha);
+            $sql->bindParam(':email', $email);
+            $sql->bindParam(':senha', $senha);
             $sql->execute(); 
-
             if($sql->rowCount() > 0){
                 header('Location: index.php');
                 exit;
-            }else{
+            }
+            else{
                 header('Location: telaLogin.php?erroLogin=2');
                 exit;
             }
@@ -40,7 +41,10 @@
         }
     }
 
-    function cadastrarUsuario($connection){
+    function cadastrarUsuario(){
+        
+    $connection = connection();
+
         try{
             if(isset($_POST['form'])){
                 $nome = $_POST['nome'];
@@ -61,11 +65,11 @@
         $stmt->bindValue(':administrador',$administrador);
         $stmt->execute();
 
-        header('Location: home.php?logado=2');
+        header('Location: telaLogin.php?logado=1');
 
         }catch(Exception $e){
             echo 'Erro ao enviar:', $e->getMessage();
-            // header('Location: telaLogup.php?erroCadastro=2');
+            header('Location: telaLogup.php?erroCadastro=2');
         }
 
         return 0;

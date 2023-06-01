@@ -14,7 +14,6 @@
     
     <link rel="stylesheet" href="./styles/logIn.css">
     <title>LogIn</title>
-    <script src="auto_refresh.js"></script>
 </head>
 <body>
     <div class="container">
@@ -42,6 +41,5 @@
         <div class="container-background">
         </div>
     </div>
-
 </body>
 </html>
