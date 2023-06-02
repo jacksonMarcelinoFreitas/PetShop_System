@@ -1,5 +1,8 @@
 <?php
-  require("./connection.php")
+  require("./connection.php");
+  require("./select.php");
+
+  select();
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +15,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=fallback">
     <link rel="stylesheet" href="./styles/cliente.css">
     <script src="https://kit.fontawesome.com/b4415bb129.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./src/dist/css/adminlte.min.css">
@@ -171,43 +174,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box-side">
                 <h1>Adicionar Cliente</h1>
                 <form>
-                    <div class="form-group">
+                    <input type="hidden" name="id" value="<?php echo $cliente['idCliente'];?>">
+                    <div class="form-box">
                         <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" required>
+                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required value="<?php echo $cliente['nomeCliente'];?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-box">
                         <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" required>
+                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required value="<?php echo $cliente['cpfCliente'];?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-box">
                         <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" required>
+                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required value="<?php echo $cliente['telefoneCliente'];?>">
                     </div>
                     <input type="submit" value="Adicionar">
                 </form>
             </div>
             <div class="box-side">
                 <h1>Lista de Clientes</h1>
-                <table>
-                    <tr>
-                        <th>Nome Completo</th>
-                        <th>CPF</th>
-                        <th>Telefone</th>
-                        <th>Ações</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <div class="container-table">
+                  <table>
+                      <thead>
                         <tr>
-                            <td>João da Silva</td>
-                            <td>123.456.789-00</td>
-                            <td>(11) 98765-4321</td>
-                            <td>
-                                <a href="#" class="edit-icon">&#9998;</a>
-                                <a href="#" class="delete-icon">&#128465;</a>
-                            </td>
+                            <th>Nome Completo</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Ações</th>
                         </tr>
-                    </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>João da Silva</td>
+                              <td>123.456.789-00</td>
+                              <td>(11) 98765-4321</td>
+                              <td>
+                                  <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a>
+                                  <a href="#" class="delete-icon fa-solid fa-trash-can"></a>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                </div>
             </div>
         </div>
 

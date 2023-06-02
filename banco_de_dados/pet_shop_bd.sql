@@ -2,10 +2,10 @@ CREATE DATABASE pet_shop_bd;
 USE pet_shop_bd;
 
 CREATE TABLE CLIENTE(
-	cpfCliente varchar (50) PRIMARY KEY NOT NULL,
+    idCliente VARCHAR (50) PRIMARY KEY NOT NULL,
+	cpfCliente varchar (50),
     nomeCliente varchar (20),
-    telefoneCliente varchar (20),
-    CONSTRAINT cliente_cpf UNIQUE (cpfCliente)
+    telefoneCliente varchar (20)
 );
 
 CREATE TABLE ENDERECO(

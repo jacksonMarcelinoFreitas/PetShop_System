@@ -1,26 +1,166 @@
+*{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
 h1 {
-    font-size: 24px;
+    font-size: 32px !important;
+    font-weight: 700;
     text-align: left;
 }
 
-.box-container {
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+form{
+    width: 100%;
 }
 
 .box-container {
+    height: 80vh;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
+    gap: 48px;
+
+    padding: 48px;
 }
 
-.form-group {
+.box-side {
+    background-color: rgba(128, 128, 128, 0.075);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+
+    border-radius: 12px;
+
+    padding: 48px;
+}
+
+.form-box {
     width: 100%;
 }
 
-.form-group label {
+.form-box label {
     width: 100%;
+    margin-bottom: 4px;
+
+    font-weight: 300;
+
+    color: rgba(100, 100, 100, 0.87);
 }
+
+.form-box input {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 0 12px;
+
+    border-radius: 8px;
+    border: none;
+    height: 32px;
+    background-color: rgba(128, 128, 128, 0.384);
+    color: rgba(43, 43, 43, 0.925);
+}
+
+.form-box input::placeholder{
+    color: rgba(107, 107, 107, 0.479);
+    font-size: 14px;
+}
+
+form input[type="submit"]{
+    margin-top: 16px;
+    height: 32px;
+    padding: 0 16px;
+    
+    border-radius: 8px;
+    border: none;
+
+    background-color: rgb(177, 255, 177);
+    color:  rgb(58, 99, 58);
+}
+
+/* ----------------------- Lista de Clientes -------------------------*/
+.container-table{
+    width: 100%;
+    height: 100%;
+
+    overflow-y: scroll;
+
+    background-color: rgb(88, 88, 88);
+    border-radius: 8px;
+}
+
+table{
+    width: 100%;
+
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+thead{
+    background-color: rgba(128, 128, 128);
+    height: 42px;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+thead th{
+    padding: 0 8px;
+    border-bottom: 2px solid gray;
+}
+
+thead th:nth-child(odd){
+    background-color: rgba(112, 112, 112);
+}
+
+tbody tr{
+    height: 32px;
+    background-color: rgba(112, 112, 112);
+    border-bottom: 1px solid rgb(155, 155, 155);
+}
+
+tbody td{
+    padding: 0 8px;
+}
+
+tbody td:nth-last-child(1){
+    text-align: center;
+}
+
+tbody tr:nth-child(odd){
+    height: 32px;
+    background-color: rgba(82, 82, 82);
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgb(165, 165, 165);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(63, 63, 63);
+    border-radius: 8px;
+}
+
+.delete-icon, .edit-icon{
+    padding: 0 4px;
+}
+
+.edit-icon{
+    color: rgb(117, 204, 255);
+}
+
+.delete-icon{
+    color: rgb(228, 74, 74);
+}
+
+
+
+
+
+
+
