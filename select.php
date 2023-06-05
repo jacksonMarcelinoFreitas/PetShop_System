@@ -3,7 +3,7 @@
     require_once("./connection.php");
 
 
-    function select(){
+    function selectCliente(){
 
         $connection = connection();
         $sql = "SELECT * FROM cliente";
@@ -16,7 +16,7 @@
 
     function showClientToEdit(){
         $connection = connection();
-        
+
         $cliente = [];
         $id = $_GET['id'];
 

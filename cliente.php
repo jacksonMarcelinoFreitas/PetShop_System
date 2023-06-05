@@ -1,15 +1,17 @@
 <?php
-  require("./connection.php");
-  require("./select.php");
-
-  select();
+    // $message = $_GET['message'];
+    // if(isset($_GET['message'])){
+    //     if($message == 1){
+    //         echo "Não foi possível adicionar";
+    //     }else if($message == 2){
+    //         echo "Não foi possível adicionar";
+    //     }else if($message == 3){
+    //         echo "Não foi possível adicionar";
+    //     }
+    // }
 ?>
 
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 <head>
@@ -19,6 +21,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="./styles/cliente.css">
     <script src="https://kit.fontawesome.com/b4415bb129.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./src/dist/css/adminlte.min.css">
+    <link href="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet">
+    <script src="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet"></script>
+    <script src="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
     <title>AdminLTE 3 | Top Navigation + Sidebar</title>
 </head>
@@ -171,25 +177,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
 
         <div class="box-container">
+
             <div class="box-side">
                 <h1>Adicionar Cliente</h1>
-                <form>
-                    <input type="hidden" name="id" value="<?php echo $cliente['idCliente'];?>">
+                <form action="insert.php" method="post" id="form" name="form">
+                    <input type="hidden" name="id">
+
                     <div class="form-box">
                         <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required value="<?php echo $cliente['nomeCliente'];?>">
+                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required >
                     </div>
+
                     <div class="form-box">
                         <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required value="<?php echo $cliente['cpfCliente'];?>">
+                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required >
                     </div>
+
                     <div class="form-box">
                         <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required value="<?php echo $cliente['telefoneCliente'];?>">
+                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required>
                     </div>
-                    <input type="submit" value="Adicionar">
+
+                    <input type="submit" name="form" value="Adicionar">
                 </form>
             </div>
+
             <div class="box-side">
                 <h1>Lista de Clientes</h1>
                 <div class="container-table">
@@ -236,6 +248,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- REQUIRED SCRIPTS -->
 
+    <script>
+
+
+$.toast({
+  heading: 'Notificação',
+  text: 'Esta é uma notificação de exemplo.',
+  showHideTransition: 'slide',
+  icon: 'info',
+  position: 'top-right'
+});
+
+</script>
+
     <!-- jQuery -->
     <script src="./src/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -244,6 +269,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="./src/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="./src/dist/js/demo.js"></script>
+
+
+
+
+
 </body>
 
 </html>
