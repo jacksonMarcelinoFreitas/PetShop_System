@@ -1,32 +1,22 @@
-<?php
-    // $message = $_GET['message'];
-    // if(isset($_GET['message'])){
-    //     if($message == 1){
-    //         echo "Não foi possível adicionar";
-    //     }else if($message == 2){
-    //         echo "Não foi possível adicionar";
-    //     }else if($message == 3){
-    //         echo "Não foi possível adicionar";
-    //     }
-    // }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=fallback">
-    <link rel="stylesheet" href="./styles/cliente.css">
-    <script src="https://kit.fontawesome.com/b4415bb129.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./src/dist/css/adminlte.min.css">
-    <link href="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet">
-    <script src="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet"></script>
-    <script src="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
-    <title>AdminLTE 3 | Top Navigation + Sidebar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=fallback">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./src/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="./styles/cliente.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet"></script>
+    <script src="https://kit.fontawesome.com/b4415bb129.js" crossorigin="anonymous"></script>
+    <script src="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+
+    <title>Ducão - PetShop</title>
 </head>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
@@ -185,12 +175,12 @@
 
                     <div class="form-box">
                         <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required >
+                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required>
                     </div>
 
                     <div class="form-box">
                         <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required >
+                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required>
                     </div>
 
                     <div class="form-box">
@@ -201,79 +191,102 @@
                     <input type="submit" name="form" value="Adicionar">
                 </form>
             </div>
-
             <div class="box-side">
                 <h1>Lista de Clientes</h1>
                 <div class="container-table">
-                  <table>
-                      <thead>
-                        <tr>
-                            <th>Nome Completo</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Ações</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td>João da Silva</td>
-                              <td>123.456.789-00</td>
-                              <td>(11) 98765-4321</td>
-                              <td>
-                                  <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a>
-                                  <a href="#" class="delete-icon fa-solid fa-trash-can"></a>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome Completo</th>
+                                <th>CPF</th>
+                                <th>Telefone</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                                include("./select.php");
+                                $result = selectCliente();
+
+                                if (isset($error_message)) :
+                            ?>
+
+                                <tr>
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <!-- <td colspan="4">
+                                        <div class="alert alert-danger"><?php echo $error_message; ?></div>
+                                    </td> -->
+                                </tr>
+
+                            <?php else :
+
+                                if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+
+                            ?>
+                                <tr>
+                                    <td><?php echo $row["nomeCliente"]; ?></td>
+                                    <td><?php echo $row["cpfCliente"]; ?></td>
+                                    <td><?php echo $row["telefoneCliente"]; ?></td>
+                                    <td>
+                                        <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a>
+                                        <a href="#" class="delete-icon fa-solid fa-trash-can"></a>
+                                    </td>
+                                </tr>
+
+                            <?php
+
+                                }
+
+                                } else {
+
+                            ?>
+                                    <tr>
+                                        <td colspan="4">Nenhum cliente encontrado.</td>
+                                    </tr>
+                            <?php
+
+                                }
+                                endif;
+
+                            ?>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
+
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+
         </div>
-
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
+        
         <footer class="main-footer d-flex justify-content-end">
-            <!-- Default to the left -->
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">Ducão PetShop</a>.</strong> All rights
             reserved.
         </footer>
-    </div>
-    <!-- ./wrapper -->
+        
+        <!-- REQUIRED SCRIPTS -->
 
-    <!-- REQUIRED SCRIPTS -->
-
-    <script>
-
-
-$.toast({
-  heading: 'Notificação',
-  text: 'Esta é uma notificação de exemplo.',
-  showHideTransition: 'slide',
-  icon: 'info',
-  position: 'top-right'
-});
-
-</script>
-
-    <!-- jQuery -->
-    <script src="./src/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="./src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="./src/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="./src/dist/js/demo.js"></script>
-
-
-
-
-
+        <!-- Bootstrap CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- jQuery -->
+        <script src="./src/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="./src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="./src/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="./src/dist/js/demo.js"></script>
 </body>
 
 </html>

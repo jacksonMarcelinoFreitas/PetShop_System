@@ -1,4 +1,4 @@
-*{
+* {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -8,7 +8,7 @@ h1 {
     text-align: left;
 }
 
-form{
+form {
     width: 100%;
 }
 
@@ -62,25 +62,25 @@ form{
     color: rgba(43, 43, 43, 0.925);
 }
 
-.form-box input::placeholder{
+.form-box input::placeholder {
     color: rgba(107, 107, 107, 0.479);
     font-size: 14px;
 }
 
-form input[type="submit"]{
+form input[type="submit"] {
     margin-top: 16px;
     height: 32px;
     padding: 0 16px;
-    
+
     border-radius: 8px;
     border: none;
 
     background-color: rgb(177, 255, 177);
-    color:  rgb(58, 99, 58);
+    color: rgb(58, 99, 58);
 }
 
 /* ----------------------- Lista de Clientes -------------------------*/
-.container-table{
+.container-table {
     width: 100%;
     height: 100%;
 
@@ -90,14 +90,14 @@ form input[type="submit"]{
     border-radius: 8px;
 }
 
-table{
+table {
     width: 100%;
 
     overflow: hidden;
     border-radius: 8px;
 }
 
-thead{
+thead {
     background-color: rgba(128, 128, 128);
     height: 42px;
 
@@ -105,30 +105,31 @@ thead{
     font-weight: 700;
 }
 
-thead th{
+thead th {
     padding: 0 8px;
     border-bottom: 2px solid gray;
 }
 
-thead th:nth-child(odd){
+thead th:nth-child(odd) {
     background-color: rgba(112, 112, 112);
 }
 
-tbody tr{
+tbody tr {
     height: 32px;
     background-color: rgba(112, 112, 112);
     border-bottom: 1px solid rgb(155, 155, 155);
 }
 
-tbody td{
+tbody td {
+    font-size: 12px;
     padding: 0 8px;
 }
 
-tbody td:nth-last-child(1){
+tbody td:nth-last-child(1) {
     text-align: center;
 }
 
-tbody tr:nth-child(odd){
+tbody tr:nth-child(odd) {
     height: 32px;
     background-color: rgba(82, 82, 82);
 }
@@ -146,21 +147,15 @@ tbody tr:nth-child(odd){
     border-radius: 8px;
 }
 
-.delete-icon, .edit-icon{
+.delete-icon,
+.edit-icon {
     padding: 0 4px;
 }
 
-.edit-icon{
+.edit-icon {
     color: rgb(117, 204, 255);
 }
 
-.delete-icon{
+.delete-icon {
     color: rgb(228, 74, 74);
 }
-
-
-
-
-
-
-
