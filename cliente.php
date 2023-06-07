@@ -167,7 +167,15 @@
         <!-- Main Sidebar Container -->
 
         <div class="box-container">
+            <?php
+                $update = false;
+                $insert = false;
+                $delete = false;
+                include("./select.php");
+                $result = selectCliente();
 
+                $row = $result->fetch_assoc();
+            ?>
             <div class="box-side">
                 <h1>Adicionar Cliente</h1>
                 <form action="insert.php" method="post" id="form" name="form">
@@ -175,12 +183,12 @@
 
                     <div class="form-box">
                         <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required>
+                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required value="<?php echo $row["nomeCliente"]; ?>">
                     </div>
 
                     <div class="form-box">
                         <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required>
+                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required value="<?php echo $row["cpfCliente"]; ?>">
                     </div>
 
                     <div class="form-box">
@@ -207,19 +215,15 @@
 
                             <?php
                                 include("./select.php");
-                                $result = selectCliente();
+                                $result = selectAllCliente();
 
                                 if (isset($error_message)) :
                             ?>
 
                                 <tr>
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                    <!-- <td colspan="4">
+                                    <td colspan="4">
                                         <div class="alert alert-danger"><?php echo $error_message; ?></div>
-                                    </td> -->
+                                    </td>
                                 </tr>
 
                             <?php else :
@@ -233,8 +237,15 @@
                                     <td><?php echo $row["cpfCliente"]; ?></td>
                                     <td><?php echo $row["telefoneCliente"]; ?></td>
                                     <td>
-                                        <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a>
-                                        <a href="#" class="delete-icon fa-solid fa-trash-can"></a>
+                                        <!-- <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a> -->
+                                        <!-- <a href="#" class="delete-icon fa-solid fa-trash-can"></a> -->
+
+                                        <a href="select.php?id=<?php echo $row['id']?>" class="edit-icon">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <a href="delete.php?id=<?php echo $row['id']?>" class="delete-icon">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
                                     </td>
                                 </tr>
 

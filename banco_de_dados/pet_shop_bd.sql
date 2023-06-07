@@ -2,7 +2,7 @@ CREATE DATABASE pet_shop_bd;
 USE pet_shop_bd;
 
 CREATE TABLE CLIENTE(
-    idCliente VARCHAR (50) PRIMARY KEY NOT NULL,
+    id int PRIMARY KEY AUTO_INCREMENT,
 	cpfCliente varchar (50),
     nomeCliente varchar (20),
     telefoneCliente varchar (20)
