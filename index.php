@@ -1,3 +1,6 @@
+<?php
+  require_once("./verificarSessao.php");
+?>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -80,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
 
-      
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -88,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
           <li class="nav-header">GERENCIAR</li>
           <li class="nav-item">
-            <a href="./src/cliente.php" class="nav-link">
+            <a href="./cliente.php" class="nav-link">
               <i class="nav-icon fas fa-duotone fa-person"></i>
               <p>
                 Clientes
@@ -106,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="./src/produto.php" class="nav-link">
+            <a href="./produto.php" class="nav-link">
               <i class="nav-icon fas fa-solid fa-cart-shopping"></i>
               <p>
                 Produtos
@@ -115,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="./src/compra.php" class="nav-link">
+            <a href="./compra.php" class="nav-link">
               <i class="nav-icon fas fa-duotone fa-bag-shopping"></i>
               <p>
                 Compras
@@ -124,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="./src/servico.php" class="nav-link">
+            <a href="./servico.php" class="nav-link">
               <i class="nav-icon fas fa-duotone fa-bell-concierge"></i>
               <p>
                 Serviços
@@ -143,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./src/search/simple.html" class="nav-link">
+                <a href="./search/simple.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Simple Search</p>
                 </a>

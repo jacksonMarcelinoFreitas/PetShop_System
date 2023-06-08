@@ -25,6 +25,7 @@
         $connection -> close();
 
         return $stmt;
+
     };
 
     function selectCliente($id) {

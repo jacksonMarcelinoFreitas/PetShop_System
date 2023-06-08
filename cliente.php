@@ -1,4 +1,6 @@
+
 <?php
+    require_once("./verificarSessao.php");
     require_once("./select.php");
 ?>
 

@@ -1,78 +1,99 @@
-<?php 
+<?php
 
     require_once('./connection.php');
+    session_start();
 
 
-    if($_GET['tela'] == 1) {
-        validarLogin();
-    }else if($_GET['tela'] == 2){
-        cadastrarUsuario();
-    }
+    // if($_GET['tela'] == 1) {
+    //     validarLogin();
+    // }else if($_GET['tela'] == 2){
+    //     cadastrarUsuario();
+    // }
+
+    function cadastrarUsuario(){
+
+        $connection = connection();
+
+            try{
+                if(isset($_POST['form'])){
+                    $nome = $_POST['nome'];
+                    $senha = $_POST['senha'];
+                    $email = $_POST['email'];
+                    $administrador = $_POST['administrador'];
+
+                    $nome = trim($connection->real_escape_string($nome));
+                    $senha = trim($connection->real_escape_string($senha));
+                    $email = trim($connection->real_escape_string($email));
+                    $administrador = trim($connection->real_escape_string($administrador));
+
+                }else{
+                    $connection->close();
+                    header('Location: telaLogup.php?registered=false');
+                }
+
+                $sql = "INSERT INTO usuario (nome, email, senha, administrador) VALUES (?, ?, ?, ?)";
+
+                $stmt = $connection->prepare($sql);
+                $stmt->bind_param('sssb', $nome, $email, $senha, $administrador);
+                $stmt->execute();
+
+                $connection->close();
+                header('Location: telaLogin.php?registered=true');
+
+            }catch(Exception $e){
+                $connection->close();
+                echo 'Erro ao enviar:', $e->getMessage();
+                header('Location: telaLogup.php?registered=false&error=1');
+            }
+
+        }
 
     function validarLogin(){
 
-    $connection = connection();
+        $connection = connection();
 
-        //verifica se possui todos os parâmetros 
-        if(isset($_POST['form'])){
-            $email = $_POST['email'];
-            $senha = $_POST['senha'];
-        }else{
-            header('Location: telaLogin.php?erroLogin=1');
-        }
 
         try{
-            $sql = $connection->prepare("SELECT * FROM usuario WHERE email = :email and senha = :senha");
-            $sql->bindParam(':email', $email);
-            $sql->bindParam(':senha', $senha);
-            $sql->execute(); 
-            if($sql->rowCount() > 0){
-                header('Location: index.php');
+
+            if(isset($_POST['form'])){
+                $email = $_POST['email'];
+                $senha = $_POST['senha'];
+            }else{
+                $connection->close();
+                header('Location: telaLogin.php?loged=false&error=1');
+            }
+
+            $sql = "SELECT * FROM usuario WHERE email = ? and senha = ?";
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param('ss', $email, $senha);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
+            if($row > 0){
+
+                $_SESSION['usuario_id'] = $row['usuario_id'];
+
+                $connection->close();
+                header('Location: index.php?loged=true');
                 exit;
             }
             else{
-                header('Location: telaLogin.php?erroLogin=2');
+                $connection->close();
+                header('Location: telaLogin.php?loged=false');
                 exit;
             }
+
         }catch(Exception $e){
+            $connection->close();
             echo 'Erro ao encontar usuário:', $e->getMessage();
-            header('Location: telaLogin.php?erro=2');
+            header('Location: telaLogin.php?loged=false&error=2');
             exit;
         }
+
     }
 
-    function cadastrarUsuario(){
-        
-    $connection = connection();
-
-        try{
-            if(isset($_POST['form'])){
-                $nome = $_POST['nome'];
-                $senha = md5($_POST['senha']);
-                $email = $_POST['email'];
-                $administrador = $_POST['administrador'];
-            }else{
-                header('Location: telaLogup.php?erroCadastro=1');
-            }
-
-        // Insert
-        $sql = "INSERT INTO usuario (nome, email, senha, administrador) VALUES (:nome,:email,:senha,:administrador)";
-        
-        $stmt = $connection->prepare($sql);
-        $stmt->bindValue(':nome',$nome);
-        $stmt->bindValue(':email',$email);
-        $stmt->bindValue(':senha',$senha);
-        $stmt->bindValue(':administrador',$administrador);
-        $stmt->execute();
-
-        header('Location: telaLogin.php?logado=1');
-
-        }catch(Exception $e){
-            echo 'Erro ao enviar:', $e->getMessage();
-            header('Location: telaLogup.php?erroCadastro=2');
-        }
-
-        return 0;
-    }
+    validarLogin();
 
 ?>
