@@ -34,7 +34,8 @@
     } catch (Exception $e) {
       // Armazenar mensagem de erro em uma variável de sessão
       // $_SESSION['error_message'] = 'Erro ao enviar: ' . $e->getMessage();
-      header('Location: cliente.php?message=3');
+      // header('Location: cliente.php?message=3');
+      echo "$connection->error";
     }
   }
 

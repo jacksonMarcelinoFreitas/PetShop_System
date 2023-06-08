@@ -1,3 +1,7 @@
+<?php
+    require_once("./select.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=fallback">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link href="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet">
+    <!-- <link href="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="./src/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="./styles/cliente.css">
 
@@ -167,28 +171,84 @@
         <!-- Main Sidebar Container -->
 
         <div class="box-container">
-            <?php
-                $update = false;
-                $insert = false;
-                $delete = false;
-                include("./select.php");
-                $result = selectCliente();
+        <?php
 
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $result = selectCliente($id);
                 $row = $result->fetch_assoc();
-            ?>
+            }
+
+
+            if(isset($_GET['update'])) {
+
+        ?>
             <div class="box-side">
-                <h1>Adicionar Cliente</h1>
-                <form action="insert.php" method="post" id="form" name="form">
-                    <input type="hidden" name="id">
+                <h1>Atualizar Cliente</h1>
+                <form action="update.php" method="post" id="form" name="form">
+                    <input type="hidden" name="id" value=" <?= $row["id"] ?>">
 
                     <div class="form-box">
                         <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required value="<?php echo $row["nomeCliente"]; ?>">
+                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required value=" <?= $row["nomeCliente"] ?>">
                     </div>
 
                     <div class="form-box">
                         <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required value="<?php echo $row["cpfCliente"]; ?>">
+                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required value=" <?= $row["cpfCliente"] ?>" >
+                    </div>
+
+                    <div class="form-box">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required value=" <?= $row["telefoneCliente"] ?>" >
+                    </div>
+
+                    <input type="submit" name="form" value="Atualizar">
+                </form>
+            </div>
+
+        <?php
+        }else if(isset($_GET['delete'])){
+        ?>
+            <div class="box-side">
+                <h1>Excluir Cliente</h1>
+                <form action="delete.php" method="post" id="form" name="form">
+                    <input type="hidden" name="id" value=" <?= $row["id"] ?>">
+
+                    <div class="form-box">
+                        <label for="nome">Nome Completo:</label>
+                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" disabled value=" <?= $row["nomeCliente"] ?>">
+                    </div>
+
+                    <div class="form-box">
+                        <label for="cpf">CPF:</label>
+                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" disabled value=" <?= $row["cpfCliente"] ?>" >
+                    </div>
+
+                    <div class="form-box">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" disabled value=" <?= $row["telefoneCliente"] ?>" >
+                    </div>
+
+                    <input type="submit" name="form" value="Excluir">
+                </form>
+            </div>
+        <?php
+        }else{
+        ?>
+            <div class="box-side">
+                <h1>Cadastrar Cliente</h1>
+                <form action="insert.php" method="post" id="form" name="form">
+                    <!-- <input type="hidden" name="id"> -->
+
+                    <div class="form-box">
+                        <label for="nome">Nome Completo:</label>
+                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" >
+                    </div>
+
+                    <div class="form-box">
+                        <label for="cpf">CPF:</label>
+                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required>
                     </div>
 
                     <div class="form-box">
@@ -196,9 +256,13 @@
                         <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required>
                     </div>
 
-                    <input type="submit" name="form" value="Adicionar">
+                    <input type="submit" name="form" value="Cadastrar">
                 </form>
             </div>
+        <?php
+        }
+        ?>
+
             <div class="box-side">
                 <h1>Lista de Clientes</h1>
                 <div class="container-table">
@@ -214,7 +278,7 @@
                         <tbody>
 
                             <?php
-                                include("./select.php");
+                                // include("./select.php");
                                 $result = selectAllCliente();
 
                                 if (isset($error_message)) :
@@ -240,10 +304,10 @@
                                         <!-- <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a> -->
                                         <!-- <a href="#" class="delete-icon fa-solid fa-trash-can"></a> -->
 
-                                        <a href="select.php?id=<?php echo $row['id']?>" class="edit-icon">
+                                        <a href="select.php?id=<?php echo $row["id"]?>&action=1" class="edit-icon">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <a href="delete.php?id=<?php echo $row['id']?>" class="delete-icon">
+                                        <a href="select.php?id=<?php echo $row["id"]?>&action=2" class="delete-icon">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </td>
@@ -280,12 +344,12 @@
             <!-- /.control-sidebar -->
 
         </div>
-        
+
         <footer class="main-footer d-flex justify-content-end">
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">Ducão PetShop</a>.</strong> All rights
             reserved.
         </footer>
-        
+
         <!-- REQUIRED SCRIPTS -->
 
         <!-- Bootstrap CDN -->
