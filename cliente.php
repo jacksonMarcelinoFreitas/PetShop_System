@@ -212,7 +212,7 @@
         ?>
             <div class="box-side">
                 <h1>Excluir Cliente</h1>
-                <form action="delete.php" method="post" id="form" name="form">
+                <form action="delete.php?id=<?php echo $id ?>" method="post" id="form" name="form">
                     <input type="hidden" name="id" value=" <?= $row["id"] ?>">
 
                     <div class="form-box">
