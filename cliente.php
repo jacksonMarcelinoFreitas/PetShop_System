@@ -26,10 +26,21 @@
 </head>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
+
+
     <!-- Main Sidebar Container -->
     <div class="wrapper">
 
         <!-- Navbar -->
+        <?php
+            $resultUsuario = selectUsuario($_SESSION['idUsuario']);
+            $rowUsuario = $resultUsuario->fetch_assoc();
+
+            //Faz o limite de palavras
+            $palavras = explode(" ", $rowUsuario["nomeUsuario"]);
+            $primeirasPalavras = array_slice($palavras, 0, 2);
+            $nomeUser = implode(" ", $primeirasPalavras);
+        ?>
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="./src/index3.html" class="navbar-brand">
@@ -62,9 +73,14 @@
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                                <i class="fas fa-th-large"></i>
+                            <a href="./src/index3.html" style="display: flex; align-items: center; gap: 12px">
+                                <span><?php echo $nomeUser ?></span>
+                                <div class="avatar" style="background-image: url('<?php echo $rowUsuario["avatarUsuario"] ?>')" >
+                                </div>
                             </a>
+                            <!-- <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                                <i class="fas fa-th-large"></i> -->
+                            <!-- </a> -->
                         </li>
                     </ul>
                 </div>
@@ -77,18 +93,17 @@
             <a href="./src/index3.html" class="brand-link">
                 <img src="./src/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">Ducão Petshop</span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="./src/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-center">
+                    <div class="avatar" style="background-image: url('<?php echo $rowUsuario["avatarUsuario"] ?>');">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block"><?php echo $nomeUser ?></a>
                     </div>
                 </div>
 
@@ -101,7 +116,7 @@
                 with font-awesome or any other icon font library -->
                         <li class="nav-header">GERENCIAR</li>
                         <li class="nav-item">
-                            <a href="./src/cliente.php" class="nav-link">
+                            <a href="./cliente.php" class="nav-link">
                                 <i class="nav-icon fas fa-duotone fa-person"></i>
                                 <p>
                                     Clientes
@@ -172,98 +187,97 @@
         </aside>
         <!-- Main Sidebar Container -->
 
+        <!-- Formulario and Table -->
         <div class="box-container">
-        <?php
+            <?php
 
-            if (isset($_GET['id'])) {
-                $id = $_GET['id'];
-                $result = selectCliente($id);
-                $row = $result->fetch_assoc();
-            }
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    $result = selectCliente($id);
+                    $row = $result->fetch_assoc();
+                }
 
+                if(isset($_GET['update'])) {
+            ?>
+                <div class="box-side">
+                    <h1>Atualizar Cliente</h1>
+                    <form action="update.php" method="post" id="form" name="form">
+                        <input type="hidden" name="id" value=" <?= $row["id"] ?>">
 
-            if(isset($_GET['update'])) {
+                        <div class="form-box">
+                            <label for="nome">Nome Completo:</label>
+                            <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required value=" <?= $row["nomeCliente"] ?>">
+                        </div>
 
-        ?>
-            <div class="box-side">
-                <h1>Atualizar Cliente</h1>
-                <form action="update.php" method="post" id="form" name="form">
-                    <input type="hidden" name="id" value=" <?= $row["id"] ?>">
+                        <div class="form-box">
+                            <label for="cpf">CPF:</label>
+                            <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required value=" <?= $row["cpfCliente"] ?>" >
+                        </div>
 
-                    <div class="form-box">
-                        <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" required value=" <?= $row["nomeCliente"] ?>">
-                    </div>
+                        <div class="form-box">
+                            <label for="telefone">Telefone:</label>
+                            <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required value=" <?= $row["telefoneCliente"] ?>" >
+                        </div>
 
-                    <div class="form-box">
-                        <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required value=" <?= $row["cpfCliente"] ?>" >
-                    </div>
+                        <input type="submit" name="form" value="Atualizar">
+                    </form>
+                </div>
 
-                    <div class="form-box">
-                        <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required value=" <?= $row["telefoneCliente"] ?>" >
-                    </div>
+            <?php
+                }else if(isset($_GET['delete'])){
+            ?>
+                <div class="box-side">
+                    <h1>Excluir Cliente</h1>
+                    <form action="delete.php?id=<?php echo $id ?>" method="post" id="form" name="form">
+                        <input type="hidden" name="id" value=" <?= $row["id"] ?>">
 
-                    <input type="submit" name="form" value="Atualizar">
-                </form>
-            </div>
+                        <div class="form-box">
+                            <label for="nome">Nome Completo:</label>
+                            <input type="text" id="nome" name="nome" placeholder="Jhon Doe" disabled value=" <?= $row["nomeCliente"] ?>">
+                        </div>
 
-        <?php
-        }else if(isset($_GET['delete'])){
-        ?>
-            <div class="box-side">
-                <h1>Excluir Cliente</h1>
-                <form action="delete.php?id=<?php echo $id ?>" method="post" id="form" name="form">
-                    <input type="hidden" name="id" value=" <?= $row["id"] ?>">
+                        <div class="form-box">
+                            <label for="cpf">CPF:</label>
+                            <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" disabled value=" <?= $row["cpfCliente"] ?>" >
+                        </div>
 
-                    <div class="form-box">
-                        <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" disabled value=" <?= $row["nomeCliente"] ?>">
-                    </div>
+                        <div class="form-box">
+                            <label for="telefone">Telefone:</label>
+                            <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" disabled value=" <?= $row["telefoneCliente"] ?>" >
+                        </div>
 
-                    <div class="form-box">
-                        <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" disabled value=" <?= $row["cpfCliente"] ?>" >
-                    </div>
+                        <input type="submit" name="form" value="Excluir">
+                    </form>
+                </div>
+            <?php
+                }else{
+            ?>
+                <div class="box-side">
+                    <h1>Cadastrar Cliente</h1>
+                    <form action="insert.php" method="post" id="form" name="form">
+                        <!-- <input type="hidden" name="id"> -->
 
-                    <div class="form-box">
-                        <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" disabled value=" <?= $row["telefoneCliente"] ?>" >
-                    </div>
+                        <div class="form-box">
+                            <label for="nome">Nome Completo:</label>
+                            <input type="text" id="nome" name="nome" placeholder="Jhon Doe" >
+                        </div>
 
-                    <input type="submit" name="form" value="Excluir">
-                </form>
-            </div>
-        <?php
-        }else{
-        ?>
-            <div class="box-side">
-                <h1>Cadastrar Cliente</h1>
-                <form action="insert.php" method="post" id="form" name="form">
-                    <!-- <input type="hidden" name="id"> -->
+                        <div class="form-box">
+                            <label for="cpf">CPF:</label>
+                            <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required>
+                        </div>
 
-                    <div class="form-box">
-                        <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Jhon Doe" >
-                    </div>
+                        <div class="form-box">
+                            <label for="telefone">Telefone:</label>
+                            <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required>
+                        </div>
 
-                    <div class="form-box">
-                        <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="060.978.542-34" required>
-                    </div>
-
-                    <div class="form-box">
-                        <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required>
-                    </div>
-
-                    <input type="submit" name="form" value="Cadastrar">
-                </form>
-            </div>
-        <?php
-        }
-        ?>
+                        <input type="submit" name="form" value="Cadastrar">
+                    </form>
+                </div>
+            <?php
+                }
+            ?>
 
             <div class="box-side">
                 <h1>Lista de Clientes</h1>
@@ -340,20 +354,22 @@
 
 
             <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
+            <!-- <aside class="control-sidebar control-sidebar-dark"> -->
                 <!-- Control sidebar content goes here -->
-            </aside>
+            <!-- </aside> -->
             <!-- /.control-sidebar -->
 
         </div>
+        <!-- Formulario and Table -->
 
+        <!-- Footer -->
         <footer class="main-footer d-flex justify-content-end">
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">Ducão PetShop</a>.</strong> All rights
             reserved.
         </footer>
+        <!-- Footer -->
 
-        <!-- REQUIRED SCRIPTS -->
-
+        <!-- Scripts-->
         <!-- Bootstrap CDN -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <!-- jQuery -->

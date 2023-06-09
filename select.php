@@ -52,4 +52,28 @@
         return $stmt;
     }
 
+    function selectUsuario($id) {
+        $connection = connection();
+
+        if ($connection->connect_error) {
+            die("Erro na conexão com o banco de dados: " . $connection->connect_error);
+        }
+
+        if($id){
+
+            $sql = "SELECT * FROM USUARIO WHERE idUsuario=$id";
+            $stmt = $connection->query($sql);
+
+            if ($stmt === false) {
+                die("Erro na consulta: " . $connection->error);
+            }
+        }
+        else{
+            die("Erro problemas com o id do cliente " . $connection->connect_error);
+        }
+        $connection->close();
+
+        return $stmt;
+    }
+
 ?>

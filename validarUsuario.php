@@ -1,57 +1,56 @@
 <?php
 
-    require_once('./connection.php');
     session_start();
+    require_once('./connection.php');
 
-
-    // if($_GET['tela'] == 1) {
-    //     validarLogin();
-    // }else if($_GET['tela'] == 2){
-    //     cadastrarUsuario();
-    // }
+    if($_GET['tela'] == 1) {
+        validarLogin();
+    }else if($_GET['tela'] == 2){
+        cadastrarUsuario();
+    }
 
     function cadastrarUsuario(){
 
         $connection = connection();
 
-            try{
-                if(isset($_POST['form'])){
-                    $nome = $_POST['nome'];
-                    $senha = $_POST['senha'];
-                    $email = $_POST['email'];
-                    $administrador = $_POST['administrador'];
+        try{
+            if(isset($_POST['form'])){
+                $nome = $_POST['nome'];
+                $senha = $_POST['senha'];
+                $email = $_POST['email'];
+                $administrador = $_POST['administrador'];
 
-                    $nome = trim($connection->real_escape_string($nome));
-                    $senha = trim($connection->real_escape_string($senha));
-                    $email = trim($connection->real_escape_string($email));
-                    $administrador = trim($connection->real_escape_string($administrador));
+                $nome = trim($connection->real_escape_string($nome));
+                $senha = trim($connection->real_escape_string($senha));
+                $email = trim($connection->real_escape_string($email));
+                $administrador = trim($connection->real_escape_string($administrador));
 
-                }else{
-                    $connection->close();
-                    header('Location: telaLogup.php?registered=false');
-                }
-
-                $sql = "INSERT INTO usuario (nome, email, senha, administrador) VALUES (?, ?, ?, ?)";
-
-                $stmt = $connection->prepare($sql);
-                $stmt->bind_param('sssb', $nome, $email, $senha, $administrador);
-                $stmt->execute();
-
+            }else{
                 $connection->close();
-                header('Location: telaLogin.php?registered=true');
-
-            }catch(Exception $e){
-                $connection->close();
-                echo 'Erro ao enviar:', $e->getMessage();
-                header('Location: telaLogup.php?registered=false&error=1');
+                header('Location: telaLogup.php?registered=false');
             }
 
+            $sql = "INSERT INTO USUARIO (nomeUsuario, emailUsuario, senhaUsuario, administrador) VALUES (?, ?, ?, ?)";
+
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param('sssb', $nome, $email, $senha, $administrador);
+            $stmt->execute();
+
+            $connection->close();
+            header('Location: telaLogin.php?registered=true');
+
+        }catch(Exception $e){
+            $connection->close();
+            echo 'Erro ao enviar:', $e->getMessage();
+            header('Location: telaLogup.php?registered=false&error=1');
         }
+
+    }
+
 
     function validarLogin(){
 
         $connection = connection();
-
 
         try{
 
@@ -63,7 +62,7 @@
                 header('Location: telaLogin.php?loged=false&error=1');
             }
 
-            $sql = "SELECT * FROM usuario WHERE email = ? and senha = ?";
+            $sql = "SELECT * FROM usuario WHERE emailUsuario = ? and senhaUsuario = ?";
             $stmt = $connection->prepare($sql);
             $stmt->bind_param('ss', $email, $senha);
             $stmt->execute();
@@ -73,7 +72,7 @@
 
             if($row > 0){
 
-                $_SESSION['usuario_id'] = $row['usuario_id'];
+                $_SESSION['idUsuario'] = $row['idUsuario'];
 
                 $connection->close();
                 header('Location: index.php?loged=true');
@@ -94,6 +93,6 @@
 
     }
 
-    validarLogin();
+    // validarLogin();
 
 ?>

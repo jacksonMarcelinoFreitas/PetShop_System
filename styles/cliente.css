@@ -159,3 +159,18 @@ tbody tr:nth-child(odd) {
 .delete-icon {
     color: rgb(228, 74, 74);
 }
+
+.avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgb(96, 96, 96);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    border: 1px solid #b2b2b2;
+}
