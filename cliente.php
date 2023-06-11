@@ -2,6 +2,7 @@
 <?php
     require_once("./verificarSessao.php");
     require_once("./select.php");
+    require_once("./notificacoes.php");
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +17,7 @@
     <!-- <link href="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="./src/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="./styles/cliente.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="src/plugins/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet"></script>
@@ -33,6 +35,13 @@
 
         <!-- Navbar -->
         <?php
+            if(isset($_GET['message'])){
+                if ($_GET['message'] == 1) {
+                    info("Texto");
+                };
+
+            }
+
             $resultUsuario = selectUsuario($_SESSION['idUsuario']);
             $rowUsuario = $resultUsuario->fetch_assoc();
 
@@ -254,7 +263,7 @@
             ?>
                 <div class="box-side">
                     <h1>Cadastrar Cliente</h1>
-                    <form action="insert.php" method="post" id="form" name="form">
+                    <form action="insert.php?tela=1" method="post" id="form" name="form">
                         <!-- <input type="hidden" name="id"> -->
 
                         <div class="form-box">
@@ -380,6 +389,34 @@
         <script src="./src/dist/js/adminlte.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="./src/dist/js/demo.js"></script>
+
+        <!-- Plugin Toastr -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+        <script>
+
+                // toastr.options = {
+                //     "closeButton": true,
+                //     "debug": false,
+                //     "newestOnTop": false,
+                //     "progressBar": true,
+                //     "positionClass": "toast-top-right",
+                //     "preventDuplicates": false,
+                //     "onclick": null,
+                //     "showDuration": "60000",
+                //     "hideDuration": "60000",
+                //     "timeOut": "60000",
+                //     "extendedTimeOut": "1000",
+                //     "showEasing": "swing",
+                //     "hideEasing": "linear",
+                //     "showMethod": "fadeIn",
+                //     "hideMethod": "fadeOut"
+                // };
+
+                // toastr.info("Mensagem aqui");
+
+        </script>
 </body>
 
 </html>
