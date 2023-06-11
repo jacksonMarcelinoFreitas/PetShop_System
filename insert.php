@@ -7,7 +7,9 @@
       insertCliente();
     }else if($_GET['tela'] == 2){
       insertImagem();
-    }
+    }else if($_GET['tela'] == 3){
+      insertImagem();
+    };
 
   }
 
@@ -34,6 +36,37 @@
         header('Location: cliente.php?message=1');
       } else {
         header('Location: cliente.php?message=2');
+      }
+    } catch (Exception $e) {
+      echo "$connection->error";
+    }
+  }
+
+  function insertProduto() {
+    try {
+      $connection = connection();
+
+      if (isset($_POST['form'])) {
+
+        $nome = $_POST['nome'];
+        $codigo = $_POST['codigo'];
+        $valor = $_POST['valor'];
+        $descricao = $_POST['descricao'];
+
+        $nome = trim($connection->real_escape_string($nome));
+        $codigo = trim($connection->real_escape_string($codigo));
+        $valor = trim($connection->real_escape_string($valor));
+        $descricao = trim($connection->real_escape_string($descricao));
+
+        $sql = "INSERT INTO USUARIO (nomeProduto, codProduto, valorProduto, descricaoProduto) VALUES (?, ?, ?, ?)";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('sids', $nome, $cpf, $telefone);
+        $stmt->execute();
+
+        header('Location: produto.php?message=1');
+      } else {
+        header('Location: produto.php?message=2');
       }
     } catch (Exception $e) {
       echo "$connection->error";

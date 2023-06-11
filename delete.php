@@ -1,26 +1,51 @@
 <?php
     require_once("./connection.php");
 
-    function deleteCliente(){
+    if(isset($_POST['form'])){
+        $id = $_GET['id'];
+
+        //cliente
+        if($_GET['tela'] == 1){
+            deleteCliente($id);
+            header("location: cliente.php?message=1");
+        }else if($_GET['tela'] == 2){
+            deleteProduto($id);
+            header("location: cliente.php?message=1");
+        }
+    }
+
+    function deleteCliente($id){
 
         $connection = connection();
 
-        if (isset($_POST['form'])) {
-
-            $id = $_GET['id'];
-            // $nome = $_POST['nome'];
-            // $cpf = $_POST['cpf'];
-            // $telefone = $_POST['telefone'];
-
+        try{
             $sql = "DELETE FROM CLIENTE WHERE id = ?";
 
             $stmt = $connection->prepare($sql);
             $stmt->bind_param('i', $id);
             $stmt->execute();
+            header("Location: cliente.php?message=1");
+
+        } catch (Exception $e) {
+            header("Location: cliente.php?message=2");
         }
 
-        header("Location: cliente.php?insert=true");
-    }
+    };
+    function deleteProduto($id){
 
-    deleteCliente();
+        $connection = connection();
+
+        try{
+            $sql = "DELETE FROM PRODUTO WHERE id = ?";
+
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            header("Location: produto.php?message=1");
+
+        } catch (Exception $e) {
+            header("Location: produto.php?message=2");
+        }
+
+    }
 ?>

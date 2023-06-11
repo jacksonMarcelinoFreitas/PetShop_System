@@ -50,10 +50,10 @@ form {
     color: rgba(100, 100, 100, 0.87);
 }
 
-.form-box input {
+.form-box input, textarea{
     width: 100%;
     margin-bottom: 8px;
-    padding: 0 12px;
+    padding: 8px 12px;
 
     border-radius: 8px;
     border: none;
@@ -61,6 +61,12 @@ form {
     background-color: rgba(128, 128, 128, 0.384);
     color: rgba(43, 43, 43, 0.925);
 }
+
+.form-box textarea{
+    height: 100%;
+    resize: none;
+}
+
 
 .form-box input::placeholder {
     color: rgba(107, 107, 107, 0.479);

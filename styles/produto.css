@@ -1,0 +1,10 @@
+textarea{
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  color: black;
+}
+
+table td:nth-last-child(1) div{
+  width: 60px;
+}
