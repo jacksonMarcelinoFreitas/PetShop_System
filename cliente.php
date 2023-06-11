@@ -72,15 +72,15 @@
 
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                        <li class="nav-item">
-                            <a href="./src/index3.html" style="display: flex; align-items: center; gap: 12px">
-                                <span><?php echo $nomeUser ?></span>
+                        <li class="nav-item" style="display: flex; align-items: center; flex-direction: row; gap: 8px">
+                            <div style="display: flex; align-items: end; flex-direction: column; line-height:16px;">
+                                <span  style="font-size: 14px" ><?php echo $nomeUser ?></span>
+                                <a href="./verificarSessao.php?action=1" style="font-size: 12px">Sair</a>
+                            </div>
+                            <a href="./perfilUsuario.php" style="display: flex; align-items: center; gap: 12px">
                                 <div class="avatar" style="background-image: url('<?php echo $rowUsuario["avatarUsuario"] ?>')" >
                                 </div>
                             </a>
-                            <!-- <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                                <i class="fas fa-th-large"></i> -->
-                            <!-- </a> -->
                         </li>
                     </ul>
                 </div>
@@ -219,7 +219,7 @@
                             <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required value=" <?= $row["telefoneCliente"] ?>" >
                         </div>
 
-                        <input type="submit" name="form" value="Atualizar">
+                        <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
                     </form>
                 </div>
 
@@ -246,7 +246,7 @@
                             <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" disabled value=" <?= $row["telefoneCliente"] ?>" >
                         </div>
 
-                        <input type="submit" name="form" value="Excluir">
+                        <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
                     </form>
                 </div>
             <?php
@@ -272,7 +272,7 @@
                             <input type="text" id="telefone" name="telefone" placeholder="(19) 999456-7989)" required>
                         </div>
 
-                        <input type="submit" name="form" value="Cadastrar">
+                        <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
                     </form>
                 </div>
             <?php
@@ -363,10 +363,10 @@
         <!-- Formulario and Table -->
 
         <!-- Footer -->
-        <footer class="main-footer d-flex justify-content-end">
+        <!-- <footer class="main-footer d-flex justify-content-start">
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">Ducão PetShop</a>.</strong> All rights
             reserved.
-        </footer>
+        </footer> -->
         <!-- Footer -->
 
         <!-- Scripts-->
