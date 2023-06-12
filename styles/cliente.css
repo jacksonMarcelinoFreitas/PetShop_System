@@ -82,13 +82,28 @@ form {
     font-size: 14px;
 }
 
-form input[type="submit"] {
-    margin-top: 16px;
-    height: 32px;
-    padding: 0 16px;
+form input[type="submit"], .voltar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 32px;
 
     border-radius: 8px;
     border: none;
+}
+
+.voltar{
+    background-color: rgb(141, 236, 255);
+    color: black;
+}
+
+.form-button{
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
 }
 
 /* ----------------------- Lista de Clientes -------------------------*/

@@ -11,6 +11,9 @@
         }else if($_GET['tela'] == 2){
             deleteProduto($id);
             header("location: produto.php?message=1");
+        }else if($_GET['tela'] == 5){
+            deleteAnimal($id);
+            header("location: animal.php?message=1");
         }
     }
 
@@ -46,6 +49,24 @@
 
         } catch (Exception $e) {
             header("Location: produto.php?message=2");
+        }
+
+    }
+
+    function deleteAnimal($id){
+
+        $connection = connection();
+
+        try{
+            $sql = "DELETE FROM ANIMAL WHERE idAnimal = ?";
+
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            header("Location: animal.php?message=1");
+
+        } catch (Exception $e) {
+            header("Location: animal.php?message=2");
         }
 
     }

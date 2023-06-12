@@ -117,7 +117,16 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./src/usuario.php" class="nav-link">
+                                <a href="./animal.php" class="nav-link">
+                                    <i class="nav-icon fas fa-solid fa-paw"></i>
+                                    <p>
+                                        Animais
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./perfilUsuario.php" class="nav-link">
                                     <i class="nav-icon fas fa-duotone fa-user"></i>
                                     <p>
                                         Usuários
@@ -126,7 +135,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./src/produto.php" class="nav-link">
+                                <a href="./produto.php" class="nav-link">
                                     <i class="nav-icon fas fa-solid fa-cart-shopping"></i>
                                     <p>
                                         Produtos
@@ -135,7 +144,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./src/compra.php" class="nav-link">
+                                <a href="./compra.php" class="nav-link">
                                     <i class="nav-icon fas fa-duotone fa-bag-shopping"></i>
                                     <p>
                                         Compras
@@ -144,7 +153,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./src/servico.php" class="nav-link">
+                                <a href="./servico.php" class="nav-link">
                                     <i class="nav-icon fas fa-duotone fa-bell-concierge"></i>
                                     <p>
                                         Serviços
@@ -221,13 +230,16 @@
                                                 echo "<option value=\"$idCliente\" $selected>$nomeCliente</option>";
                                             }
                                         } else {
-                                            echo "<option value=\"\">Nenhum cliente encontrado</option>";
+                                            echo "<option value=\"\">Nenhum animal encontrado</option>";
                                         }
                                     ?>
                                 </select>
                             </div>
 
-                            <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
+                            <div class="form-button">
+                                <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
+                                <a class="voltar" href="./animal.php">Voltar</a>
+                            </div>
                         </form>
                     </div>
 
@@ -271,7 +283,10 @@
                                 </select>
                             </div>
 
-                            <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
+                            <div class="form-button">
+                                <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
+                                <a class="voltar" href="./animal.php">Voltar</a>
+                            </div>
                         </form>
                     </div>
                 <?php
@@ -308,7 +323,9 @@
                                     }; ?>
                             </div>
 
-                            <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
+                            <div class="form-button">
+                                <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
+                            </div>
                         </form>
                     </div>
                 <?php
