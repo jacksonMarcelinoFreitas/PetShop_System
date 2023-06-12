@@ -79,7 +79,7 @@
         //     $valores[] = $row['valorTotal'];
         //     $cpfs[] = $row['fk_cliente_cpfCliente'];
         // }
-        $sql = "SELECT valorTotal, nomeCliente FROM compra JOIN cliente ON cpfCliente = fk_cliente_cpfCliente";
+        $sql = "SELECT valorTotal, nomeCliente FROM compra JOIN cliente ON idCliente = fk_cliente_idCliente";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 
@@ -106,9 +106,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="AdminLTE/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="./src/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="AdminLTE/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="./src/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -313,13 +313,13 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="AdminLTE/plugins/jquery/jquery.min.js"></script>
+<script src="./src/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="./src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
-<script src="AdminLTE/plugins/chart.js/Chart.min.js"></script>
+<script src="./src/plugins/chart.js/Chart.min.js"></script>
 <!-- AdminLTE App -->
-<script src="AdminLTE/dist/js/adminlte.min.js"></script>
+<script src="./src/dist/js/adminlte.min.js"></script>
 
 <script>
   $(function () {
