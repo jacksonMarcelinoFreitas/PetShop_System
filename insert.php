@@ -9,6 +9,8 @@
       insertImagem();
     }else if($_GET['tela'] == 3){
       insertImagem();
+    }else if($_GET['tela'] == 5){
+      insertAnimal();
     };
 
   }
@@ -109,6 +111,38 @@
       header('Location: perfilUsuario.php?message=3');
     }
 
+  }
+
+  function insertAnimal() {
+    try {
+      $connection = connection();
+
+      if (isset($_POST['form'])) {
+
+        $nome = $_POST['nome'];
+        $fk_idCliente = $_POST['idCliente'];
+
+        // $connection->query("SET FOREIGN_KEY_CHECKS = 0");
+
+        $nome = trim($connection->real_escape_string($nome));
+        $fk_idCliente = trim($connection->real_escape_string($fk_idCliente));
+
+        $sql = "INSERT INTO ANIMAL (nomeAnimal, fk_idCliente) VALUES (?, ?)";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('si', $nome, $fk_idCliente);
+        $stmt->execute();
+
+        // $connection->query("SET FOREIGN_KEY_CHECKS = 1");
+
+
+        header('Location: animal.php?message=1');
+      } else {
+        header('Location: animal.php?message=2');
+      }
+    } catch (Exception $e) {
+      echo "$connection->error";
+    }
   }
 
 ?>

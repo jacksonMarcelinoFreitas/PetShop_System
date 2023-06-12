@@ -10,7 +10,7 @@
             header("location: cliente.php?message=1");
         }else if($_GET['tela'] == 2){
             deleteProduto($id);
-            header("location: cliente.php?message=1");
+            header("location: produto.php?message=1");
         }
     }
 
@@ -31,12 +31,13 @@
         }
 
     };
+
     function deleteProduto($id){
 
         $connection = connection();
 
         try{
-            $sql = "DELETE FROM PRODUTO WHERE id = ?";
+            $sql = "DELETE FROM PRODUTO WHERE idProduto = ?";
 
             $stmt = $connection->prepare($sql);
             $stmt->bind_param('i', $id);

@@ -8,15 +8,15 @@ CREATE TABLE CLIENTE(
     telefoneCliente varchar (20)
 );
 
-CREATE TABLE ENDERECO(
-	idEndereco INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    cidade VARCHAR (50),
-    bairro VARCHAR (50),
-    rua VARCHAR (50),
-    numero INT,
-    fk_cpfCliente VARCHAR (20),
-    FOREIGN KEY (fk_cpfCliente) REFERENCES CLIENTE(cpfCliente)
-);
+-- CREATE TABLE ENDERECO(
+-- 	idEndereco INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+--     cidade VARCHAR (50),
+--     bairro VARCHAR (50),
+--     rua VARCHAR (50),
+--     numero INT,
+--     fk_cpfCliente VARCHAR (20),
+--     FOREIGN KEY (fk_cpfCliente) REFERENCES CLIENTE(cpfCliente)
+-- );
 
 CREATE TABLE CLIENTEENDERECO (
     fk_cliente_cpfCliente VARCHAR (20),
@@ -97,6 +97,15 @@ CREATE TABLE CLIENTEANIMAL (
     FOREIGN KEY (fk_cpfCliente) REFERENCES CLIENTE (cpfCliente)
 );
 
+CREATE TABLE `ANIMAL` (
+	`idAnimal` INT(10) NOT NULL AUTO_INCREMENT,
+	`nomeAnimal` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`fk_idCliente` INT(10) NOT NULL,
+	PRIMARY KEY (`idAnimal`) USING BTREE,
+	INDEX `FK_idCliente_idAnimal` (`fk_idCliente`) USING BTREE,
+	CONSTRAINT `FK_idCliente_idAnimal` FOREIGN KEY (`fk_idCliente`) REFERENCES `cliente` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+
 
 CREATE TABLE USUARIO (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -109,8 +118,3 @@ CREATE TABLE USUARIO (
     CONSTRAINT uc_email UNIQUE (email),
     FOREIGN KEY (fk_cpfFuncionario) REFERENCES FUNCIONARIO (cpfFuncionario)
 );
-
-
-
-
-

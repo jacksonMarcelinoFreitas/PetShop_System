@@ -50,7 +50,7 @@ form {
     color: rgba(100, 100, 100, 0.87);
 }
 
-.form-box input, textarea{
+.form-box input, textarea, .combo-box{
     width: 100%;
     margin-bottom: 8px;
     padding: 8px 12px;
@@ -65,6 +65,15 @@ form {
 .form-box textarea{
     height: 100%;
     resize: none;
+}
+
+.form-box .combo-box{
+    width: 50%;
+    resize: none;
+}
+
+.combo-box option{
+    padding: 8px;
 }
 
 

@@ -1,5 +1,6 @@
 
 <?php
+    require_once("./connection.php");
     require_once("./verificarSessao.php");
     require_once("./select.php");
 ?>
@@ -183,35 +184,47 @@
                 <?php
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
-                        $result = selectProduto($id);
+                        $result = selectAnimal($id);
                         $row = $result->fetch_assoc();
                     }
 
                     if(isset($_GET['update'])) {
                 ?>
                     <div class="box-side">
-                        <h1>Atualizar Produto</h1>
-                        <form action="update.php?tela=2&id=<?php echo $id ?>" name="form" method="post" id="form" >
-                            <input type="hidden" name="id" value="<?php $row["idProduto"] ?>">
+                        <h1>Atualizar animal</h1>
+                        <form action="update.php?tela=5&id=<?php echo $id ?>" name="form" method="post" id="form" >
+                            <input type="hidden" name="idAnimal" value="<?php echo $row["idAnimal"] ?>">
 
                             <div class="form-box">
-                                <label for="nome">Nome do produto:</label>
-                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" value="<?php echo $row["nomeProduto"] ?>" required>
+                                <label for="nome">Nome do pet:</label>
+                                <input type="text" name="nomeAnimal" id="nomeAnimal" placeholder="Peppa Pig" value="<?php echo $row["nomeAnimal"] ?>" required>
                             </div>
 
                             <div class="form-box">
-                                <label for="codigo">Código:</label>
-                                <input type="number" name="codigo" id="codigo" placeholder="01789216" value="<?php echo $row["codProduto"] ?>" required>
-                            </div>
+                                <label for="idCliente">Dono do pet:</label>
+                                <select name="idCliente" id="idCliente" class="combo-box" required>
+                                    <?php
+                                        $connection = connection();
+                                        $sql = "SELECT id, nomeCliente FROM cliente";
+                                        $resultCliente = $connection->query($sql);
+                                        $idSelecionado = $row["fk_idCliente"];
 
-                            <div class="form-box">
-                                <label for="valor">Valor:</label>
-                                <input type="text" name="valor" id="valor" placeholder="R$90,00" value=" <?php echo $row["valorProduto"] ?>" required>
-                            </div>
+                                        if ($resultCliente->num_rows > 0) {
+                                            while ($rowCliente = $resultCliente->fetch_assoc()) {
+                                                $idCliente = $rowCliente['id'];
+                                                $nomeCliente = $rowCliente['nomeCliente'];
 
-                            <div class="form-box">
-                                <label for="descricao">Descrição:</label>
-                                <textarea type="text" name="descricao" id="descricao" placeholder="Descrever o produto." required><?php echo $row["descricaoProduto"] ?></textarea>
+                                                // Verifica se o ID do cliente é igual ao ID selecionado
+                                                $selected = ($idCliente == $idSelecionado) ? 'selected' : '';
+
+                                                // Cria a opção com o atributo 'selected' se necessário
+                                                echo "<option value=\"$idCliente\" $selected>$nomeCliente</option>";
+                                            }
+                                        } else {
+                                            echo "<option value=\"\">Nenhum cliente encontrado</option>";
+                                        }
+                                    ?>
+                                </select>
                             </div>
 
                             <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
@@ -222,28 +235,40 @@
                     }else if(isset($_GET['delete'])){
                 ?>
                     <div class="box-side">
-                        <h1>Excluir Produto</h1>
-                        <form action="delete.php?tela=2&id=<?php echo $id ?>" name="form" method="post" id="form">
-                            <input type="hidden" name="id" value="<?php $row["idProduto"] ?>">
+                        <h1>Excluir Animal</h1>
+                        <form action="delete.php?tela=5&id=<?php echo $id ?>" name="form" method="post" id="form">
+                            <input type="hidden" name="id" value="<?php echo $row["idAnimal"] ?>">
 
                             <div class="form-box">
-                                <label for="nome">Nome do produto:</label>
-                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" value="<?php echo $row["nomeProduto"] ?>" disabled>
+                                <label for="nome">Nome do pet:</label>
+                                <input type="text" name="nomeAnimal" id="nomeAnimal" placeholder="Peppa Pig" value="<?php echo $row["nomeAnimal"] ?>" disabled>
                             </div>
 
                             <div class="form-box">
-                                <label for="codigo">Código:</label>
-                                <input type="number" name="codigo" id="codigo" placeholder="01789216" value="<?php echo $row["codProduto"] ?>" disabled>
-                            </div>
+                                <label for="idCliente">Dono do pet:</label>
+                                <select name="idCliente" id="idCliente" class="combo-box" required>
+                                    <?php
+                                        $connection = connection();
+                                        $sql = "SELECT id, nomeCliente FROM cliente";
+                                        $resultCliente = $connection->query($sql);
+                                        $idSelecionado = $row["fk_idCliente"];
 
-                            <div class="form-box">
-                                <label for="valor">Valor:</label>
-                                <input type="text" name="valor" id="valor" placeholder="R$90,00" value=" <?php echo $row["valorProduto"] ?>" disabled>
-                            </div>
+                                        if ($resultCliente->num_rows > 0) {
+                                            while ($rowCliente = $resultCliente->fetch_assoc()) {
+                                                $idCliente = $rowCliente['id'];
+                                                $nomeCliente = $rowCliente['nomeCliente'];
 
-                            <div class="form-box">
-                                <label for="descricao">Descrição:</label>
-                                <textarea type="text" name="descricao" id="descricao" placeholder="Descrever o produto." disabled><?php echo $row["descricaoProduto"] ?></textarea>
+                                                // Verifica se o ID do cliente é igual ao ID selecionado
+                                                $selected = ($idCliente == $idSelecionado) ? 'selected' : '';
+
+                                                // Cria a opção com o atributo 'selected' se necessário
+                                                echo "<option value=\"$idCliente\" $selected disabled>$nomeCliente</option>";
+                                            }
+                                        } else {
+                                            echo "<option value=\"\">Nenhum cliente encontrado</option>";
+                                        }
+                                    ?>
+                                </select>
                             </div>
 
                             <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
@@ -253,26 +278,34 @@
                     }else{
                 ?>
                     <div class="box-side">
-                        <h1>Cadastrar Produto</h1>
-                          <form action="insert.php?tela=2" name="form" method="post" id="form">
+                        <h1>Cadastrar Animal</h1>
+                          <form action="insert.php?tela=5" name="form" method="post" id="form">
+
                             <div class="form-box">
-                                <label for="nome">Nome do produto:</label>
-                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" required >
+                                <label for="nome">Nome do pet:</label>
+                                <input type="text" name="nome" id="nome" placeholder="Peppa Pig" required>
                             </div>
 
                             <div class="form-box">
-                                <label for="codigo">Código:</label>
-                                <input type="number" name="codigo" id="codigo" placeholder="01789216"  required >
-                            </div>
+                                <label for="idCliente">Dono do pet:</label>
+                                <?php
+                                    $connection = connection();
 
-                            <div class="form-box">
-                                <label for="valor">Valor:</label>
-                                <input type="number" name="valor" id="valor" placeholder="R$90,00" required >
-                            </div>
+                                    $sql = "SELECT nomeCliente, id FROM cliente";
+                                    $resultCliente = $connection->query($sql);
 
-                            <div class="form-box">
-                                <label for="descricao">Descrição:</label>
-                                <textarea type="textarea" name="descricao" id="descricao" placeholder="Descrição do produto." value="<?php $row["descricaoProduto"] ?>"></textarea>
+                                    if ($resultCliente->num_rows > 0) {
+                                ?>
+                                        <select name="idCliente" id="idCliente" class="combo-box">
+                                            <?php
+                                                while ($row = $resultCliente->fetch_assoc()) { ?>
+                                                <option value="<?php echo $row['id'] ?>"> <?php echo $row['nomeCliente'] ?> </option>
+                                            <?php } ?>
+                                        </select>
+                                            <?php
+                                    } else {
+                                        echo "Nenhum cliente encontrado.";
+                                    }; ?>
                             </div>
 
                             <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
@@ -283,21 +316,19 @@
                 ?>
 
                 <div class="box-side">
-                    <h1>Lista de Produtos</h1>
+                    <h1>Lista de Pets</h1>
                     <div class="container-table">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Código</th>
-                                    <th>Valor</th>
-                                    <th>Descrição</th>
+                                    <th>Dono do pet</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $result = selectAllProduto();
+                                    $result = selectAllAnimal();
                                     if (isset($error_message)) :
                                 ?>
                                     <tr>
@@ -311,16 +342,14 @@
                                     while ($row = $result->fetch_assoc()) {
                                 ?>
                                     <tr>
-                                        <td><?php echo $row["nomeProduto"]; ?></td>
-                                        <td><?php echo $row["codProduto"]; ?></td>
-                                        <td><?php echo $row["valorProduto"]; ?></td>
-                                        <td><?php echo $row["descricaoProduto"]; ?></td>
+                                        <td><?php echo $row["nomeAnimal"]; ?></td>
+                                        <td><?php echo $row["idNomeCliente"]; ?></td>
                                         <td>
                                             <div>
-                                                <a href="select.php?tela=2&id=<?php echo $row["idProduto"] ?>&action=1" class="edit-icon">
+                                                <a href="select.php?tela=5&id=<?php echo $row["idAnimal"] ?>&action=1" class="edit-icon">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="select.php?tela=2&id=<?php echo $row["idProduto"] ?>&action=2" class="delete-icon">
+                                                <a href="select.php?tela=5&id=<?php echo $row["idAnimal"] ?>&action=2" class="delete-icon">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </a>
                                             </div>
