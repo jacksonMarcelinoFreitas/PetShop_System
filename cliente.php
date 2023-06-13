@@ -200,7 +200,7 @@
                     <div class="box-side">
                         <h1>Atualizar Cliente</h1>
                         <form action="update.php?tela=1&id=<?php echo $id ?>" name="form" method="post" id="form" >
-                            <input type="hidden" name="id" value="<?= $row["id"] ?>">
+                            <input type="hidden" name="id" value="<?= $row["idCliente"] ?>">
 
                             <div class="form-box">
                                 <label for="nome">Nome Completo:</label>
@@ -230,7 +230,7 @@
                     <div class="box-side">
                         <h1>Excluir Cliente</h1>
                         <form action="delete.php?tela=1&id=<?php echo $id ?>" name="form" method="post" id="form">
-                            <input type="hidden" name="id" value=" <?= $row["id"] ?>">
+                            <input type="hidden" name="id" value=" <?= $row["idCliente"] ?>">
 
                             <div class="form-box">
                                 <label for="nome">Nome Completo:</label>
@@ -317,10 +317,10 @@
                                         <td><?php echo $row["cpfCliente"]; ?></td>
                                         <td><?php echo $row["telefoneCliente"]; ?></td>
                                         <td>
-                                            <a href="select.php?tela=1&id=<?php echo $row["id"] ?>&action=1" class="edit-icon">
+                                            <a href="select.php?tela=1&id=<?php echo $row["idCliente"] ?>&action=1" class="edit-icon">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
-                                            <a href="select.php?tela=1&id=<?php echo $row["id"] ?>&action=2" class="delete-icon">
+                                            <a href="select.php?tela=1&id=<?php echo $row["idCliente"] ?>&action=2" class="delete-icon">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         </td>

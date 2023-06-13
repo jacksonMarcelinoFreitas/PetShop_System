@@ -73,7 +73,7 @@
 
         if($id){
 
-            $sql = "SELECT * FROM CLIENTE WHERE id=$id";
+            $sql = "SELECT * FROM CLIENTE WHERE idCliente=$id";
             $stmt = $connection->query($sql);
 
             if ($stmt === false) {
@@ -158,7 +158,7 @@
             die("Erro na conexão com o banco de dados: " . $connection->connect_error);
         }
 
-        $sql = "SELECT a.idAnimal, a.nomeAnimal, CONCAT(a.fk_idCliente, ' - ', c.nomeCliente) as idNomeCliente FROM ANIMAL a JOIN CLIENTE c ON a.fk_idCliente = c.id";
+        $sql = "SELECT a.idAnimal, a.nomeAnimal, CONCAT(a.fk_idCliente, ' - ', c.nomeCliente) as idNomeCliente FROM ANIMAL a JOIN CLIENTE c ON a.fk_idCliente = c.idCliente";
         $stmt = $connection->query($sql);
 
         $connection -> close();

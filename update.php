@@ -37,7 +37,7 @@
             $cpf = trim($connection->real_escape_string($cpf));
             $telefone = trim($connection->real_escape_string($telefone));
 
-            $sql = "UPDATE CLIENTE SET nomeCliente = ?, cpfCliente = ?, telefoneCliente = ? WHERE id = ?";
+            $sql = "UPDATE CLIENTE SET nomeCliente = ?, cpfCliente = ?, telefoneCliente = ? WHERE idCliente = ?";
 
             $stmt = $connection->prepare($sql);
             $stmt->bind_param('sssi', $nome, $cpf, $telefone, $id);

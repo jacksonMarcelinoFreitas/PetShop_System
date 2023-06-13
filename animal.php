@@ -214,13 +214,13 @@
                                 <select name="idCliente" id="idCliente" class="combo-box" required>
                                     <?php
                                         $connection = connection();
-                                        $sql = "SELECT id, nomeCliente FROM cliente";
+                                        $sql = "SELECT idCliente, nomeCliente FROM cliente";
                                         $resultCliente = $connection->query($sql);
                                         $idSelecionado = $row["fk_idCliente"];
 
                                         if ($resultCliente->num_rows > 0) {
                                             while ($rowCliente = $resultCliente->fetch_assoc()) {
-                                                $idCliente = $rowCliente['id'];
+                                                $idCliente = $rowCliente['idCliente'];
                                                 $nomeCliente = $rowCliente['nomeCliente'];
 
                                                 // Verifica se o ID do cliente é igual ao ID selecionado
@@ -261,13 +261,13 @@
                                 <select name="idCliente" id="idCliente" class="combo-box" required>
                                     <?php
                                         $connection = connection();
-                                        $sql = "SELECT id, nomeCliente FROM cliente";
+                                        $sql = "SELECT idCliente, nomeCliente FROM cliente";
                                         $resultCliente = $connection->query($sql);
                                         $idSelecionado = $row["fk_idCliente"];
 
                                         if ($resultCliente->num_rows > 0) {
                                             while ($rowCliente = $resultCliente->fetch_assoc()) {
-                                                $idCliente = $rowCliente['id'];
+                                                $idCliente = $rowCliente['idCliente'];
                                                 $nomeCliente = $rowCliente['nomeCliente'];
 
                                                 // Verifica se o ID do cliente é igual ao ID selecionado
@@ -306,7 +306,7 @@
                                 <?php
                                     $connection = connection();
 
-                                    $sql = "SELECT nomeCliente, id FROM cliente";
+                                    $sql = "SELECT nomeCliente, idCliente FROM cliente";
                                     $resultCliente = $connection->query($sql);
 
                                     if ($resultCliente->num_rows > 0) {
@@ -314,7 +314,7 @@
                                         <select name="idCliente" id="idCliente" class="combo-box">
                                             <?php
                                                 while ($row = $resultCliente->fetch_assoc()) { ?>
-                                                <option value="<?php echo $row['id'] ?>"> <?php echo $row['nomeCliente'] ?> </option>
+                                                <option value="<?php echo $row['idCliente'] ?>"> <?php echo $row['nomeCliente'] ?> </option>
                                             <?php } ?>
                                         </select>
                                             <?php
