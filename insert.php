@@ -7,7 +7,11 @@
       insertCliente();
     }else if($_GET['tela'] == 2){
       insertImagem();
-    }
+    }else if($_GET['tela'] == 3){
+      insertServico();
+    }else if($_GET['tela'] == 5){
+      insertAnimal();
+    };
 
   }
 
@@ -34,6 +38,37 @@
         header('Location: cliente.php?message=1');
       } else {
         header('Location: cliente.php?message=2');
+      }
+    } catch (Exception $e) {
+      echo "$connection->error";
+    }
+  }
+
+  function insertProduto() {
+    try {
+      $connection = connection();
+
+      if (isset($_POST['form'])) {
+
+        $nome = $_POST['nome'];
+        $codigo = $_POST['codigo'];
+        $valor = $_POST['valor'];
+        $descricao = $_POST['descricao'];
+
+        $nome = trim($connection->real_escape_string($nome));
+        $codigo = trim($connection->real_escape_string($codigo));
+        $valor = trim($connection->real_escape_string($valor));
+        $descricao = trim($connection->real_escape_string($descricao));
+
+        $sql = "INSERT INTO USUARIO (nomeProduto, codProduto, valorProduto, descricaoProduto) VALUES (?, ?, ?, ?)";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('sids', $nome, $cpf, $telefone);
+        $stmt->execute();
+
+        header('Location: produto.php?message=1');
+      } else {
+        header('Location: produto.php?message=2');
       }
     } catch (Exception $e) {
       echo "$connection->error";
@@ -76,6 +111,65 @@
       header('Location: perfilUsuario.php?message=3');
     }
 
+  }
+
+  function insertAnimal() {
+    try {
+      $connection = connection();
+
+      if (isset($_POST['form'])) {
+
+        $nome = $_POST['nome'];
+        $fk_idCliente = $_POST['idCliente'];
+
+        // $connection->query("SET FOREIGN_KEY_CHECKS = 0");
+
+        $nome = trim($connection->real_escape_string($nome));
+        $fk_idCliente = trim($connection->real_escape_string($fk_idCliente));
+
+        $sql = "INSERT INTO ANIMAL (nomeAnimal, fk_idCliente) VALUES (?, ?)";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('si', $nome, $fk_idCliente);
+        $stmt->execute();
+
+        // $connection->query("SET FOREIGN_KEY_CHECKS = 1");
+
+
+        header('Location: animal.php?message=1');
+      } else {
+        header('Location: animal.php?message=2');
+      }
+    } catch (Exception $e) {
+      echo "$connection->error";
+    }
+  }
+
+  function insertServico() {
+    try {
+      $connection = connection();
+
+      if (isset($_POST['form'])) {
+
+        $nome = $_POST['nomeServico'];
+        $valor = $_POST['valorServico'];
+
+        $nome = trim($connection->real_escape_string($nome));
+        $valor= trim($connection->real_escape_string($valor));
+
+        $sql = "INSERT INTO SERVICO (nomeServico, valorServico) VALUES (?, ?)";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('ss', $nome, $valor);
+        $stmt->execute();
+
+        header('Location: servico.php?message=1');
+      } else {
+        header('Location: servico.php?message=2');
+      }
+    } catch (Exception $e) {
+      echo "$connection->error";
+    }
   }
 
 ?>
