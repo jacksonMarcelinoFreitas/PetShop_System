@@ -1,34 +1,33 @@
 <?php
   require_once('./connection.php');
   try {
-        // Estabeleça a conexão usando a extensão PDO
-        $conn = connection();
+        $connection = connection();
 
-        $cargo = "vendedor";
-        $sql = "SELECT COUNT(*) AS total_funcionarios FROM funcionario WHERE cargoFuncionario = :cargo";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array(':cargo' => $cargo));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $totalFuncionarios = $row['total_funcionarios'];
-
-        $cargo1 = "gerente"; 
-        $sql = "SELECT COUNT(*) AS totalOutrosFuncionarios FROM funcionario WHERE cargoFuncionario = :cargo";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array(':cargo' => $cargo1));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $totalOutrosFuncionarios = $row['totalOutrosFuncionarios'];
-
-        //SecondGraphic - Pie Chart
-        $sql = "SELECT nomeServico, COUNT(*) AS total FROM clienteservico
-            INNER JOIN servico ON fk_servico_idServico = idServico
-            GROUP BY fk_servico_idServico
-            ORDER BY total DESC
-            LIMIT 7";
-        $stmt = $conn->prepare($sql);
+        //DONUT GRÁFICO - QUANTIDADE DE FUNCIONARIOS x CARGOS
+        $sql = "SELECT COUNT(cargoFuncionario) as somaPorFuncionarios, cargoFuncionario as cargosListados FROM funcionario GROUP BY cargoFuncionario";
+        $stmt = $connection->prepare($sql);
         $stmt->execute();
+        $result = $stmt->get_result();
 
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $cargosListados = [];
+        $somaPorFuncionarios = [];
 
+        foreach ($result as $row) {
+            $cargosListados[] = $row['cargosListados'];
+            $somaPorFuncionarios[] = $row['somaPorFuncionarios'];
+        }
+
+        // DONUT GRAFICO - SERVICOS X CONTRATACOES
+        $sql = "SELECT a.nomeServico, COUNT(*) AS totalPorProduto FROM clienteservico b
+        INNER JOIN servico a ON b.fk_servico_idServico = a.idServico GROUP BY b.fk_servico_idServico
+        ORDER BY totalPorProduto DESC;";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $services = $result->fetch_all(MYSQLI_ASSOC);
+
+        //ESTRUTURA E PREENCHE OS DADOS PARA O GRAFICO DE DONUTS
         $donutData = [
             'labels' => [],
             'datasets' => [
@@ -39,58 +38,55 @@
             ]
         ];
 
-        foreach ($result as $row) {
-            $nome = $row['nomeServico'];
-            $total = $row['total'];
+        $donutOptions = [
+          'maintainAspectRatio' => false,
+          'responsive' => true,
+        ];
 
-            $donutData['labels'][] = $nome;
-            $donutData['datasets'][0]['data'][] = $total;
+        //ESTRUTURA E PREENCHE OS DADOS PARA O GRAFICO DE DONUTS
+        foreach ($result as $row) {
+            $nomeServico = $row['nomeServico'];
+            $totalPorProduto = $row['totalPorProduto'];
+
+            $donutData['labels'][] = $nomeServico;
+            $donutData['datasets'][0]['data'][] = $totalPorProduto;
             $donutData['datasets'][0]['backgroundColor'][] = '#' . substr(md5(rand()), 0, 6); // Cor aleatória
         }
 
-        $donutOptions = [
-            'maintainAspectRatio' => false,
-            'responsive' => true,
-        ];
-        // Third Chart
+        //GRAFICO DE BARRAS - PRODUTO x PRECO
         $sql = "SELECT nomeProduto, valorProduto FROM produto";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connection->prepare($sql);
         $stmt->execute();
+        $result = $stmt->get_result();
+        $products = $result->fetch_all(MYSQLI_ASSOC);
 
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $nomes = [];
-        $precos = [];
+        $nomesProdutos = [];
+        $precosProdutos = [];
 
         foreach ($result as $row) {
-            $nomes[] = $row['nomeProduto'];
-            $precos[] = $row['valorProduto'];
+            $nomesProdutos[] = $row['nomeProduto'];
+            $precosProdutos[] = $row['valorProduto'];
         }
 
-        //Fourth Chart
-        // $sql = "SELECT valorTotal, fk_cliente_cpfCliente FROM compra";
-        // $stmt = $conn->prepare($sql);
-        // $stmt->execute();
-        // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // $valores = [];
-        // $cpfs = [];
+        //NOME_CLIENTE x SOMA_VALORES_COMPRADOS
+        $sql = "SELECT SUM(a.valorTotal) AS valorTotalPorCliente, b.nomeCliente
+                FROM compra a
+                JOIN cliente b ON b.idCliente = a.fk_cliente_idCliente
+                GROUP BY b.nomeCliente";
 
-        // foreach ($result as $row) {
-        //     $valores[] = $row['valorTotal'];
-        //     $cpfs[] = $row['fk_cliente_cpfCliente'];
-        // }
-        $sql = "SELECT valorTotal, nomeCliente FROM compra JOIN cliente ON idCliente = fk_cliente_idCliente";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connection->prepare($sql);
         $stmt->execute();
+        $result = $stmt->get_result();
 
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $valores = [];
+        $valoresCompradosPorCliente = [];
         $nomesCliente = [];
 
-        foreach ($result as $row) {
-            $valores[] = $row['valorTotal'];
+        while ($row = $result->fetch_assoc()) {
+            $valoresCompradosPorCliente[] = $row['valorTotalPorCliente'];
             $nomesCliente[] = $row['nomeCliente'];
         }
+
 
     } catch(PDOException $e) {
         echo "Falha na conexão: " . $e->getMessage();
@@ -198,6 +194,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
+
             <!-- AREA CHART -->
             <div class="card card-primary">
               <div class="card-header">
@@ -224,7 +221,6 @@
             <div class="card card-danger">
               <div class="card-header">
                 <h3 class="card-title">Quantidade de Funcionários:</h3>
-
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -248,7 +244,6 @@
             <div class="card card-danger">
               <div class="card-header">
                 <h3 class="card-title">Serviços mais Pedidos do Pet Shop</h3>
-
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -323,10 +318,6 @@
 
 <script>
   $(function () {
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
 
     //--------------
     //- AREA CHART -
@@ -334,22 +325,24 @@
 
     // Get context with jQuery - using jQuery's .get() method.
     var areaChartCanvas = $('#areaChart').get(0).getContext('2d');
-    var valores = <?php echo json_encode($valores); ?>;
+    var valoresCompradosPorCliente = <?php echo json_encode($valoresCompradosPorCliente); ?>;
     var nomesCliente = <?php echo json_encode($nomesCliente); ?>;
 
+    //-------------
+    //- GRAFICO DE AREA -
+    //-------------
     var areaData = {
         labels: nomesCliente,
         datasets: [
             {
                 label: 'Valor da Compra',
-                data: valores,
+                data: valoresCompradosPorCliente,
                 backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de fundo da área
                 borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda da área
                 borderWidth: 1 // Largura da borda da área
             }
         ]
     };
-
     var areaOptions = {
         responsive: true,
         scales: {
@@ -364,14 +357,14 @@
         data: areaData,
         options: areaOptions
     });
+
     //-------------
-    //- DONUT CHART -
+    //- DONUT GRAFICO -
     //-------------
-    // Get context with jQuery - using jQuery's .get() method.
     // Use a quantidade de funcionários para criar o gráfico usando Chart.js
     var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
         var donutData00 = {
-            labels: ['<?php echo $cargo; ?>', 'Atendente'],
+            labels: ['<?php echo $cargo; ?>', 'Atendente'], //parei aqui
             datasets: [
                 {
                     data: [<?php echo $totalFuncionarios; ?>, <?php echo $totalOutrosFuncionarios; ?>],
@@ -379,6 +372,17 @@
                 }
             ]
         };
+
+        $donutData = [
+            'labels' => $cargosListados,
+            'datasets' => [
+                [
+                    'data' => $somaPorFuncionarios,
+                    'backgroundColor' => ['#f56954', '#00a65a', '#007bff'], // Exemplo de cores
+                ]
+            ]
+        ];
+
         var donutOptions = {
             maintainAspectRatio: false,
             responsive: true,
@@ -409,8 +413,8 @@
     //- BAR CHART -
     //---------------------
     var barChartCanvas = $('#barChart').get(0).getContext('2d')
-    var nomes = <?php echo json_encode($nomes); ?>;
-    var precos = <?php echo json_encode($precos); ?>;
+    var nomes = <?php echo json_encode($nomesProdutos); ?>;
+    var precos = <?php echo json_encode($precosProdutos); ?>;
 
     var barData = {
         labels: nomes,

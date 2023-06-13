@@ -1,20 +1,29 @@
 <?php
     // Conexão com o banco de dados usando PDO
 
-    function connection(){
-        $dsn = 'mysql:host=localhost;dbname=pet_shop_bd';
-        $usuario = 'root';
-        $senha = 'jackson1500';
-    
-        try {
-            $pdo = new PDO($dsn, $usuario, $senha);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $pdo;
-        } catch (PDOException $e) {
-            echo 'Erro ao conectar com o MySQL: ' . $e->getMessage();
-            return null;
+    try{
+
+        function connection(){
+            $servername = "localhost";
+            $username = "root";
+            $password = "jackson1500";
+            $database = "pet_shop_bd";
+
+            // Cria a conexão
+            $conn = new mysqli($servername, $username, $password, $database);
+
+            // Verifica se ocorreu algum erro na conexão
+            if ($conn == $conn->connect_error) {
+                echo "Problemas de conexão com o banco!";
+            }
+
+            return $conn;
         }
-        
+
+    }catch(Exception $e){
+        echo 'Exceção capturada: ',  $e->getMessage(), "\n";
     }
-   
+
+    // connection();
+
 ?>
