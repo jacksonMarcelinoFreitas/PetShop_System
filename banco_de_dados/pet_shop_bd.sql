@@ -30,8 +30,10 @@ CREATE TABLE COMPRA (
 	idCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	dataCompra DATETIME,
     valorTotal DECIMAL,
-    fk_cliente_cpfCliente VARCHAR(20),
-    FOREIGN KEY (fk_cliente_cpfCliente) REFERENCES CLIENTE (cpfCliente)
+    fk_cliente_idCliente INT,
+    fk_produto_idProduto INT,
+    FOREIGN KEY (fk_cliente_idCliente) REFERENCES CLIENTE (idCliente),
+    FOREIGN KEY (fk_produto_idProduto) REFERENCES PRODUTO (idProduto)
 );
 
 CREATE TABLE PRODUTO(
@@ -109,8 +111,3 @@ CREATE TABLE USUARIO (
     CONSTRAINT uc_email UNIQUE (email),
     FOREIGN KEY (fk_cpfFuncionario) REFERENCES FUNCIONARIO (cpfFuncionario)
 );
-
-
-
-
-

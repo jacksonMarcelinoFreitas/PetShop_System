@@ -12,15 +12,42 @@
         $cargosListados = [];
         $somaPorFuncionarios = [];
 
+        // foreach ($result as $row) {
+        //     $cargosListados[] = $row['cargosListados'];
+        //     $somaPorFuncionarios[] = $row['somaPorFuncionarios'];
+        // }
+
+        //ESTRUTURA E PREENCHE OS DADOS PARA O GRAFICO DE DONUTS
+        $donutData1 = [
+          'labels' => [],
+          'datasets' => [
+              [
+                  'data' => [],
+                  'backgroundColor' => [],
+              ]
+            ]
+        ];
+
+        $donutOptions1 = [
+          'maintainAspectRatio' => false,
+          'responsive' => true,
+        ];
+
+      //ESTRUTURA E PREENCHE OS DADOS PARA O GRAFICO DE DONUTS
         foreach ($result as $row) {
-            $cargosListados[] = $row['cargosListados'];
-            $somaPorFuncionarios[] = $row['somaPorFuncionarios'];
+            $cargosListados = $row['cargosListados'];
+            $somaPorFuncionarios = $row['somaPorFuncionarios'];
+
+            $donutData1['labels'][] = $cargosListados;
+            $donutData1['datasets'][0]['data'][] = $somaPorFuncionarios;
+            $donutData1['datasets'][0]['backgroundColor'][] = '#' . substr(md5(rand()), 0, 6); // Cor aleatória
         }
 
-        // DONUT GRAFICO - SERVICOS X CONTRATACOES
-        $sql = "SELECT a.nomeServico, COUNT(*) AS totalPorProduto FROM clienteservico b
+
+        // DONUT GRAFICO - SERVICOS X QUANTIDADE DE CONTRATACOES
+        $sql = "SELECT a.nomeServico, COUNT(*) AS totalPorServico FROM clienteservico b
         INNER JOIN servico a ON b.fk_servico_idServico = a.idServico GROUP BY b.fk_servico_idServico
-        ORDER BY totalPorProduto DESC;";
+        ORDER BY totalPorServico DESC;";
 
         $stmt = $connection->prepare($sql);
         $stmt->execute();
@@ -46,10 +73,10 @@
         //ESTRUTURA E PREENCHE OS DADOS PARA O GRAFICO DE DONUTS
         foreach ($result as $row) {
             $nomeServico = $row['nomeServico'];
-            $totalPorProduto = $row['totalPorProduto'];
+            $totalPorServico = $row['totalPorServico'];
 
             $donutData['labels'][] = $nomeServico;
-            $donutData['datasets'][0]['data'][] = $totalPorProduto;
+            $donutData['datasets'][0]['data'][] = $totalPorServico;
             $donutData['datasets'][0]['backgroundColor'][] = '#' . substr(md5(rand()), 0, 6); // Cor aleatória
         }
 
@@ -172,7 +199,7 @@
                   <p>Dashboard v1</p>
                 </a>
               </li>
-            </ul> 
+            </ul>
           <li class="nav-item menu-open">
               <a href="chartjs.html" class="nav-link active">
                 <i class="nav-icon fas fa-chart-pie"></i>
@@ -198,7 +225,7 @@
             <!-- AREA CHART -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Valores das Compras dos nosso Clientes</h3>
+                <h3 class="card-title">Valor total de compra por cliente</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -220,7 +247,7 @@
             <!-- DONUT CHART -->
             <div class="card card-danger">
               <div class="card-header">
-                <h3 class="card-title">Quantidade de Funcionários:</h3>
+                <h3 class="card-title">Quantidade de Funcionários por cargo</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -263,7 +290,7 @@
             <!-- STACKED BAR CHART -->
             <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">Produtos</h3>
+                <h3 class="card-title">Produtos por preço</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -325,6 +352,7 @@
 
     // Get context with jQuery - using jQuery's .get() method.
     var areaChartCanvas = $('#areaChart').get(0).getContext('2d');
+
     var valoresCompradosPorCliente = <?php echo json_encode($valoresCompradosPorCliente); ?>;
     var nomesCliente = <?php echo json_encode($nomesCliente); ?>;
 
@@ -363,37 +391,16 @@
     //-------------
     // Use a quantidade de funcionários para criar o gráfico usando Chart.js
     var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
-        var donutData00 = {
-            labels: ['<?php echo $cargo; ?>', 'Atendente'], //parei aqui
-            datasets: [
-                {
-                    data: [<?php echo $totalFuncionarios; ?>, <?php echo $totalOutrosFuncionarios; ?>],
-                    backgroundColor: ['#f56954', '#00a65a'],
-                }
-            ]
-        };
 
-        $donutData = [
-            'labels' => $cargosListados,
-            'datasets' => [
-                [
-                    'data' => $somaPorFuncionarios,
-                    'backgroundColor' => ['#f56954', '#00a65a', '#007bff'], // Exemplo de cores
-                ]
-            ]
-        ];
+    var donutData1 = <?php echo json_encode($donutData1); ?>;
+    var donutOptions1 = <?php echo json_encode($donutOptions1); ?>;
 
-        var donutOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-        };
+    new Chart(donutChartCanvas, {
+        type: 'doughnut',
+        data: donutData1,
+        options: donutOptions1
+    });
 
-        // Crie o gráfico de rosquinha (donut)
-        new Chart(donutChartCanvas, {
-            type: 'doughnut',
-            data: donutData00,
-            options: donutOptions
-        });
 
     //-------------
     //- PIE CHART -
@@ -413,15 +420,15 @@
     //- BAR CHART -
     //---------------------
     var barChartCanvas = $('#barChart').get(0).getContext('2d')
-    var nomes = <?php echo json_encode($nomesProdutos); ?>;
-    var precos = <?php echo json_encode($precosProdutos); ?>;
+    var nomesProdutos = <?php echo json_encode($nomesProdutos); ?>;
+    var precosProdutos = <?php echo json_encode($precosProdutos); ?>;
 
     var barData = {
-        labels: nomes,
+        labels: nomesProdutos,
         datasets: [
             {
                 label: 'Preço',
-                data: precos,
+                data: precosProdutos,
                 backgroundColor: 'rgba(54, 162, 235, 0.5)', // Cor de fundo das barras
                 borderColor: 'rgba(54, 162, 235, 1)', // Cor da borda das barras
                 borderWidth: 1 // Largura da borda das barras
