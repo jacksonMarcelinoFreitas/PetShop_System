@@ -289,7 +289,7 @@
                                         </div>
 
                                         <div class="form-button">
-                                            <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
+                                            <input type="submit" name="form" value="Cadastrar" style="background-color: #FFC300; color: #000000; ">
                                         </div>
                                     </form>
                                 </div>
@@ -364,11 +364,14 @@
         </div>
         <!-- /.content-wrapper -->
 
-            <footer class="main-footer">
-                <div class="float-right d-none d-sm-block">
-                <b>Cuidar do que faz bem!</b>
+            <footer class="main-footer footer-color">
+                <div class="box-footer">
+                    <b>Cuidar do que faz bem!</b>
                 </div>
-                <strong>Copyright &copy; <a href="https://adminlte.io">Ducao PetShop</a>.</strong>
+                <div class="box-footer">
+                    <strong>Copyright &copy; <a href="https://adminlte.io">Ducao PetShop</a>.</strong>
+                </div>
+
             </footer>
 
             <!-- Control Sidebar -->

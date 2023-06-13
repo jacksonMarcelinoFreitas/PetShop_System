@@ -19,6 +19,10 @@
     font-family: 'Source Sans Pro', sans-serif;
 }
 
+html{
+    background-color: var(--blue-200);
+}
+
 .wrapper{
     background-color: var(--gray-100);
 }
@@ -41,6 +45,20 @@
     gap: 8px !important;
 }
 
+.footer-color{
+    background-color: var(--blue-200);
+    position: fixed;
+    width: 95%;
+    margin: 0px!important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between;
+}
+
+.box-footer{
+    margin-right: 32px;
+}
+
 h1 {
     font-size: 32px !important;
     font-weight: 700;
@@ -52,18 +70,22 @@ form {
 }
 
 .box-container {
-    height: 80vh;
+    height: 86vh;
     width: 100%;
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: center;
-    gap: 48px;
+    gap: 32px;
 
-    padding: 48px;
+    padding: 16px;
+}
+
+.box-side:nth-child(1){
+    margin-left: 72px;
 }
 
 .box-side {
-    background-color: rgba(128, 128, 128, 0.075);
+    background-color: var(--blue-200);
     height: 100%;
     width: 100%;
     display: flex;
@@ -72,11 +94,13 @@ form {
     flex-direction: column;
 
     border-radius: 12px;
+    color: var(--white);
 
-    padding: 48px;
+    padding: 16px 32px;
 }
 
 .form-box {
+    padding: 12px 0;
     width: 100%;
 }
 
@@ -86,7 +110,7 @@ form {
 
     font-weight: 300;
 
-    color: rgba(100, 100, 100, 0.87);
+    color: var(--gray-100);
 }
 
 .form-box input, textarea, .combo-box{
@@ -97,8 +121,8 @@ form {
     border-radius: 8px;
     border: none;
     height: 32px;
-    background-color: rgba(128, 128, 128, 0.384);
-    color: rgba(43, 43, 43, 0.925);
+    background-color: var(--gray-300);
+    color: var(--white);
 }
 
 .form-box textarea{
@@ -117,7 +141,7 @@ form {
 
 
 .form-box input::placeholder {
-    color: rgba(107, 107, 107, 0.479);
+    color: var(--gray-100);
     font-size: 14px;
 }
 
@@ -127,14 +151,15 @@ form input[type="submit"], .voltar{
     justify-content: center;
     height: 100%;
     padding: 0 32px;
+    font-weight: bold;
 
     border-radius: 8px;
     border: none;
 }
 
 .voltar{
-    background-color: rgb(141, 236, 255);
-    color: black;
+    background-color: var(--yellow-dark);
+    color: var(--black);
 }
 
 .form-button{
@@ -150,24 +175,25 @@ form input[type="submit"], .voltar{
     width: 100%;
     height: 100%;
 
-    /* overflow-y: scroll; */
-    overflow: hidden;
+    overflow-y: scroll;
+    /* overflow: hidden; */
 
-    background-color: var(--gray-100);
+    background-color: transparent;
     border-radius: 8px;
 
-    /* padding-right: 8px; */
+    padding-right: 8px;
 }
 
 table {
     width: 100%;
+    height: 100%;
 
     overflow: hidden;
     border-radius: 8px;
 }
 
 thead {
-    background-color: rgba(128, 128, 128);
+    background-color: var(--yellow-dark);
     height: 42px;
 
     font-size: 16px;
@@ -176,21 +202,22 @@ thead {
 
 thead th {
     padding: 0 8px;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid var(--blue-100);
+    color: var(--black);
 }
 
-thead th:nth-child(odd) {
-    background-color: rgba(112, 112, 112);
+thead th:nth-child(odd){
+    background-color: var(--yellow-light);
 }
 
 tbody tr {
     height: 32px;
-    background-color: rgba(112, 112, 112);
-    border-bottom: 1px solid rgb(155, 155, 155);
+    background-color: var(--gray-300);
+    border-bottom: 1px solid var(--gray-300);
 }
 
 tbody td {
-    font-size: 12px;
+    font-size: 14px;
     padding: 0 8px;
 }
 
@@ -200,11 +227,11 @@ tbody td:nth-last-child(1) {
 
 tbody tr:nth-child(odd) {
     height: 32px;
-    background-color: rgba(82, 82, 82);
+    background-color: var(--gray-400);
 }
 
 ::-webkit-scrollbar-track {
-    background-color: rgb(165, 165, 165);
+    background-color: transparent
 }
 
 ::-webkit-scrollbar {
@@ -212,7 +239,7 @@ tbody tr:nth-child(odd) {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(63, 63, 63);
+    background: var(--yellow-dark);
     border-radius: 8px;
 }
 
@@ -222,11 +249,11 @@ tbody tr:nth-child(odd) {
 }
 
 .edit-icon {
-    color: rgb(117, 204, 255);
+    color: var(--yellow-light);
 }
 
 .delete-icon {
-    color: rgb(228, 74, 74);
+    color: var(--yellow-light);
 }
 
 .avatar{
