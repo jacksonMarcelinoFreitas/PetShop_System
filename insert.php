@@ -9,7 +9,9 @@
       insertImagem();
     }else if($_GET['tela'] == 3){
       insertServico();
-    }else if($_GET['tela'] == 5){
+    }else if($_GET['tela'] == 4){
+      insertCompra();
+    };else if($_GET['tela'] == 5){
       insertAnimal();
     };
 
@@ -166,6 +168,40 @@
         header('Location: servico.php?message=1');
       } else {
         header('Location: servico.php?message=2');
+      }
+    } catch (Exception $e) {
+      echo "$connection->error";
+    }
+  }
+
+  function insertCompra() {
+    try {
+      $connection = connection();
+
+      if (isset($_POST['form'])) {
+
+        $dataCompra = $_POST['dataCompra'];
+        $valorTotal = $_POST['valorTotal'];
+        $fk_idCliente = $_POST['idCliente'];
+        $fk_idProduto = $_POST['idProduto'];
+
+        // $connection->query("SET FOREIGN_KEY_CHECKS = 0");
+
+        $dataCompra = trim($connection->real_escape_string($dataCompra));
+        $valorTotal = trim($connection->real_escape_string($valorTotal));
+        $fk_idCliente = trim($connection->real_escape_string($fk_idCliente));
+        $fk_idProduto = trim($connection->real_escape_string($fk_idProduto));
+
+        $sql = "INSERT INTO COMPRA (dataCompra, valorTotal, fk_idCliente, fk_idProduto) VALUES (?, ?, ?, ?)";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('sdii', $dataCompra, $valorTotal, $fk_idCliente,$fk_idProduto);
+        $stmt->execute();
+
+
+        header('Location: compra.php?message=1');
+      } else {
+        header('Location: compra.php?message=2');
       }
     } catch (Exception $e) {
       echo "$connection->error";

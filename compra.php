@@ -210,7 +210,7 @@
             ?>
                 <div class="box-side">
                     <h1>Atualizar Compra</h1>
-                    <form action="update.php" method="post" id="form" name="form">
+                    <form action="update.php?tela=4&id=<?php echo $id ?>" name="form" method="post" id="form" >
                         <input type="hidden" name="id" value=" <?= $row["idCompra"] ?>">
 
                         <div class="form-box">
@@ -223,7 +223,62 @@
                             <input type="text" id="valor" name="valor" placeholder="0,00" value=" <?= $row["valorTotal"] ?>" >
                         </div>
 
+                        <div class="form-box">
+                            <label for="idCliente">Cliente Escolhido:</label>
+                            <select name="idCliente" id="idCliente" class="combo-box" required>
+                                <?php
+                                    $connection = connection();
+                                    $sql = "SELECT idCliente, nomeCliente FROM cliente";
+                                    $resultCliente = $connection->query($sql);
+                                    $idSelecionado = $row["fk_idCliente"];
+
+                                    if ($resultCliente->num_rows > 0) {
+                                        while ($rowCliente = $resultCliente->fetch_assoc()) {
+                                            $idCliente = $rowCliente['idCliente'];
+                                            $nomeCliente = $rowCliente['nomeCliente'];
+
+                                            // Verifica se o ID do cliente é igual ao ID selecionado
+                                            $selected = ($idCliente == $idSelecionado) ? 'selected' : '';
+
+                                            // Cria a opção com o atributo 'selected' se necessário
+                                            echo "<option value=\"$idCliente\" $selected>$nomeCliente</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=\"\">Nenhum animal encontrado</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-box">
+                            <label for="idProduto">Produto Comprado:</label>
+                            <select name="idProduto" id="idProduto" class="combo-box" required>
+                                <?php
+                                    $connection = connection();
+                                    $sql = "SELECT idProduto, nomeProduto, codProduto FROM produto";
+                                    $resultProduto = $connection->query($sql);
+                                    $idSelecionado = $row["fk_idProduto"];
+
+                                    if ($resultProduto->num_rows > 0) {
+                                        while ($rowProduto = $resultCliente->fetch_assoc()) {
+                                            $idProduto = $rowProduto['idProduto'];
+                                            $nomeProduto = $rowProduto['nomeProduto'];
+                                            $codProduto = $rowProduto['codProduto'];
+
+                                            // Verifica se o ID do cliente é igual ao ID selecionado
+                                            $selected = ($idProduto == $idSelecionado) ? 'selected' : '';
+
+                                            // Cria a opção com o atributo 'selected' se necessário
+                                            echo "<option value=\"$codProduto\" $selected disabled>$nomeProduto</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=\"\">Nenhum produto encontrado</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+
                         <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
+                        <a class="voltar" href="./compra.php">Voltar</a>
                     </form>
                 </div>
 
@@ -232,7 +287,7 @@
             ?>
                 <div class="box-side">
                     <h1>Excluir Compra</h1>
-                    <form action="delete.php?id=<?php echo $id ?>" method="post" id="form" name="form">
+                    <form action="delete.php?tela=4&id=<?php echo $id ?>" name="form" method="post" id="form">
                         <input type="hidden" name="id" value=" <?= $row["idCompra"]; ?>">
 
                         <div class="form-box">
@@ -245,7 +300,62 @@
                             <input type="text" id="valor" name="valor" placeholder="0,00" disabled value=" <?= $row["valorTotal"]; ?>" >
                         </div>
 
+                        <div class="form-box">
+                            <label for="idCliente">Cliente Escolhido:</label>
+                            <select name="idCliente" id="idCliente" class="combo-box" required>
+                                <?php
+                                    $connection = connection();
+                                    $sql = "SELECT idCliente, nomeCliente FROM cliente";
+                                    $resultCliente = $connection->query($sql);
+                                    $idSelecionado = $row["fk_idCliente"];
+
+                                    if ($resultCliente->num_rows > 0) {
+                                        while ($rowCliente = $resultCliente->fetch_assoc()) {
+                                            $idCliente = $rowCliente['idCliente'];
+                                            $nomeCliente = $rowCliente['nomeCliente'];
+
+                                            // Verifica se o ID do cliente é igual ao ID selecionado
+                                            $selected = ($idCliente == $idSelecionado) ? 'selected' : '';
+
+                                            // Cria a opção com o atributo 'selected' se necessário
+                                            echo "<option value=\"$idCliente\" $selected disabled>$nomeCliente</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=\"\">Nenhum cliente encontrado</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-box">
+                            <label for="idCompra">Produto Comprado:</label>
+                            <select name="idCompra" id="idCompra" class="combo-box" required>
+                                <?php
+                                    $connection = connection();
+                                    $sql = "SELECT idProduto, nomeProduto, codProduto FROM produto";
+                                    $resultProduto = $connection->query($sql);
+                                    $idSelecionado = $row["fk_idProduto"];
+
+                                    if ($resultProduto->num_rows > 0) {
+                                        while ($rowProduto= $resultProduto->fetch_assoc()) {
+                                            $idProduto = $rowProduto['idProduto'];
+                                            $nomeProduto = $rowProduto['nomeProduto'];
+                                            $codProduto = $rowProduto['codProduto'];
+
+                                            // Verifica se o ID do cliente é igual ao ID selecionado
+                                            $selected = ($idProduto == $idSelecionado) ? 'selected' : '';
+
+                                            // Cria a opção com o atributo 'selected' se necessário
+                                            echo "<option value=\"$codProduto\" $selected disabled>$nomeProduto</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=\"\">Nenhum produto encontrado</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+
                         <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
+                        <a class="voltar" href="./compra.php">Voltar</a>
                     </form>
                 </div>
             <?php
@@ -264,6 +374,49 @@
                         <div class="form-box">
                             <label for="valor">Valor Total:</label>
                             <input type="text" id="valor" name="valor" placeholder="0,00" required>
+                        </div>
+
+                        <div class="form-box">
+                            <label for="idCliente">Escolher o Cliente:</label>
+                            <?php
+                                $connection = connection();
+
+                                $sql = "SELECT nomeCliente, idCliente FROM cliente";
+                                $resultCliente = $connection->query($sql);
+
+                                if ($resultCliente->num_rows > 0) {
+                            ?>
+                                    <select name="idCliente" id="idCliente" class="combo-box">
+                                        <?php
+                                            while ($row = $resultCliente->fetch_assoc()) { ?>
+                                            <option value="<?php echo $row['idCliente'] ?>"> <?php echo $row['nomeCliente'] ?> </option>
+                                        <?php } ?>
+                                    </select>
+                                        <?php
+                                } else {
+                                    echo "Nenhum cliente encontrado.";
+                                }; ?>
+                        </div>
+                        <div class="form-box">
+                            <label for="idProduto">Escolher o Produto:</label>
+                            <?php
+                                $connection = connection();
+
+                                $sql = "SELECT nomeProduto, codProduto FROM cliente";
+                                $resultCliente = $connection->query($sql);
+
+                                if ($resultCliente->num_rows > 0) {
+                            ?>
+                                    <select name="idProduto" id="idProduto" class="combo-box">
+                                        <?php
+                                            while ($row = $resultCliente->fetch_assoc()) { ?>
+                                            <option value="<?php echo $row['codProduto'] ?>"> <?php echo $row['nomeProduto'] ?> </option>
+                                        <?php } ?>
+                                    </select>
+                                        <?php
+                                } else {
+                                    echo "Nenhum cliente encontrado.";
+                                }; ?>
                         </div>
 
                         <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
@@ -311,11 +464,11 @@
                                     <td>
                                         <!-- <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a> -->
                                         <!-- <a href="#" class="delete-icon fa-solid fa-trash-can"></a> -->
-
-                                        <a href="compra.php?id=<?php echo $row["idCompra"]?>&action2=1" class="edit-icon">
+                                        
+                                        <a href="compra.php?tela=4&id=<?php echo $row["idCompra"]?>&action=1" class="edit-icon">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <a href="compra.php?id=<?php echo $row["idCompra"]?>&action2=2" class="delete-icon">
+                                        <a href="compra.php?tela=4&id=<?php echo $row["idCompra"]?>&action=2" class="delete-icon">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </td>

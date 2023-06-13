@@ -21,8 +21,8 @@
             header("location: servico.php?delete=true&id=$id");
         }
 
-        //ompra
-        }else if($_GET['action'] == 1 && $_GET['tela'] == 4){
+        //compra
+        else if($_GET['action'] == 1 && $_GET['tela'] == 4){
             header("location: compra.php?update=true&id=$id");
         }else if($_GET['action'] == 2 && $_GET['tela'] == 4){
             header("location: compra.php?delete=true&id=$id");
@@ -34,7 +34,7 @@
         }else if($_GET['action'] == 2 && $_GET['tela'] == 5){
             header("location: animal.php?delete=true&id=$id");
         }
-    }
+    
 
     require_once("./connection.php");
 
@@ -243,28 +243,21 @@
 
         return $stmt;
     }
-    function selectCompra($id) {
+    function selectAllCompra(){
         $connection = connection();
 
         if ($connection->connect_error) {
             die("Erro na conexão com o banco de dados: " . $connection->connect_error);
         }
 
-        if($id){
+        $sql = "SELECT * FROM servico";
+        $stmt = $connection->query($sql);
+        // $stmt->execute();
 
-            $sql = "SELECT * FROM compra WHERE idCompra=$id";
-            $stmt = $connection->query($sql);
-
-            if ($stmt === false) {
-                die("Erro na consulta: " . $connection->error);
-            }
-        }
-        else{
-            die("Erro problemas com o id da compra " . $connection->connect_error);
-        }
-        $connection->close();
+        $connection -> close();
 
         return $stmt;
-    }
+
+    };
 
 ?>

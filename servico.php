@@ -210,7 +210,7 @@
             ?>
                 <div class="box-side">
                     <h1>Atualizar Serviço</h1>
-                    <form action="update.php" method="post" id="form" name="form">
+                    <form action="update.php?tela=3&id=<?php echo $id ?>" name="form" method="post" id="form" >
                         <input type="hidden" name="idServico" value=" <?= $row["idServico"] ?>">
 
                         <div class="form-box">
@@ -224,6 +224,7 @@
                         </div>
 
                         <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
+                        <a class="voltar" href="./servico.php">Voltar</a>
                     </form>
                 </div>
 
@@ -232,7 +233,7 @@
             ?>
                 <div class="box-side">
                     <h1>Excluir Serviço</h1>
-                    <form action="delete.php?id=<?php echo $id ?>" method="post" id="form1" name="form1">
+                    <form action="delete.php?tela=3&id=<?php echo $id ?>" name="form" method="post" id="form">
                         <input type="hidden" name="id" value=" <?= $row["idServico"]; ?>">
 
                         <div class="form-box">
@@ -245,7 +246,8 @@
                             <input type="text" id="valor" name="valor" placeholder="0,00" disabled value=" <?= $row["valorServico"]; ?>" >
                         </div>
 
-                        <input type="submit" name="form1" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
+                        <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
+                        <a class="voltar" href="./servico.php">Voltar</a>
                     </form>
                 </div>
             <?php
@@ -311,11 +313,11 @@
                                     <td>
                                         <!-- <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a> -->
                                         <!-- <a href="#" class="delete-icon fa-solid fa-trash-can"></a> -->
-
-                                        <a href="select.php?id=<?php echo $row["idServico"]?>&action1=1" class="edit-icon">
+                                        
+                                        <a href="select.php?tela=3&id=<?php echo $row["idServico"]?>&action=1" class="edit-icon">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <a href="select.php?id=<?php echo $row["idServico"]?>&action1=2" class="delete-icon">
+                                        <a href="select.php?tela=3&id=<?php echo $row["idServico"]?>&action=2" class="delete-icon">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </td>
