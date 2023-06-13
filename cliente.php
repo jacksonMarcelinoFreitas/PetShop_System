@@ -361,26 +361,25 @@
             </section>
             <!-- /.content -->
 
-        </div>
-        <!-- /.content-wrapper -->
+            </div>
+            <!-- /.content-wrapper -->
 
-            <footer class="main-footer footer-color">
-                <div class="box-footer">
-                    <b>Cuidar do que faz bem!</b>
-                </div>
-                <div class="box-footer">
-                    <strong>Copyright &copy; <a href="https://adminlte.io">Ducao PetShop</a>.</strong>
-                </div>
+                <footer class="main-footer footer-color">
+                    <div class="box-footer">
+                        <b>Cuidar do que faz bem!</b>
+                    </div>
+                    <div class="box-footer">
+                        <strong>Copyright &copy; <a href="https://adminlte.io">Ducao PetShop</a>.</strong>
+                    </div>
+                </footer>
 
-            </footer>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
-        </div>
-        <!-- ./wrapper -->
+                 <!-- Control Sidebar -->
+                 <aside class="control-sidebar control-sidebar-dark">
+                    <!-- Control sidebar content goes here -->
+                </aside>
+                <!-- /.control-sidebar -->
+            </div>
+            <!-- ./wrapper -->
 
         <!-- Scripts-->
         <!-- Bootstrap CDN -->
