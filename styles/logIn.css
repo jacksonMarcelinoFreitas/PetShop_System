@@ -1,4 +1,4 @@
-:root{
+:root {
     --yellow-dark: #FFC300;
     --yellow-light: #FFD60A;
     --blue-100: #003566;
@@ -19,25 +19,25 @@
     padding: 0;
 }
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     width: 100%;
     height: 100vh;
 }
 
-.container{
+.container {
     width: 100%;
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-area:
-    "background"
-    "form";
+        "background"
+        "form";
     align-items: center;
 }
 
-div.container-background{
+div.container-background {
     grid-area: "background";
     width: 100%;
     height: 100%;
@@ -49,7 +49,7 @@ div.container-background{
     background-size: cover;
 }
 
-section.container-form{
+section.container-form {
     grid-area: "form";
     max-width: 100%;
     height: 100%;
@@ -60,7 +60,7 @@ section.container-form{
     justify-content: center;
 }
 
-section form{
+section form {
     padding: 42px;
     max-width: 50%;
 
@@ -79,13 +79,13 @@ form h1 {
     margin-bottom: 32px;
 }
 
-form label{
+form label {
     font-weight: 500;
     color: var(--gray-200);
     margin-bottom: 6px;
 }
 
-form input{
+form input {
     width: 100%;
     height: 40px;
 
@@ -97,7 +97,7 @@ form input{
     background-color: var(--gray-100);
 }
 
-form .box-form{
+form .box-form {
     width: 85%;
 
     display: flex;
@@ -107,27 +107,27 @@ form .box-form{
     margin-bottom: 16px;
 }
 
-form .box-form.last{
+form .box-form.last {
     align-items: center;
 }
 
-form .box-form span{
+form .box-form span {
     font-size: 12px;
     color: var(--yellow-light);
 }
 
-form .box-form a{
+form .box-form a {
     text-decoration: none;
     color: var(--yellow-dark);
     font-weight: 700;
 }
 
-input::placeholder{
+input::placeholder {
     color: var(--gray-300);
     font-size: 14px;
 }
 
-form button{
+form button {
     width: 100%;
     height: 40px;
 
@@ -142,44 +142,44 @@ form button{
     background-color: var(--blue-100);
 }
 
-form .box-option{
+form .box-option {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-form .box-radio{
+form .box-radio {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-form .box-radio > input[type="radio"]{
+form .box-radio>input[type="radio"] {
     -webkit-appearance: none;
     width: 16px;
     height: 16px;
 }
 
-form .box-option > label{
+form .box-option>label {
     font-size: 14px;
     color: #252f48ab;
 }
 
-form .box-radio > input[type="radio"]:checked{
+form .box-radio>input[type="radio"]:checked {
     background-color: #252F48;
 }
 
-form .box-radio > label{
+form .box-radio>label {
     color: #252F48;
 }
 
-.container-background{
+.container-background {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-img{
+img {
     width: 500px;
 }

@@ -8,7 +8,7 @@
     }else if($_GET['tela'] == 2){
       insertImagem();
     }else if($_GET['tela'] == 3){
-      insertImagem();
+      insertServico();
     }else if($_GET['tela'] == 5){
       insertAnimal();
     };
@@ -139,6 +139,38 @@
         header('Location: animal.php?message=1');
       } else {
         header('Location: animal.php?message=2');
+      }
+    } catch (Exception $e) {
+      echo "$connection->error";
+    }
+  }
+
+  function insertServico() {
+    try {
+      $connection = connection();
+
+      if (isset($_POST['form'])) {
+
+        $nomeServico = $_POST['nomeServico'];
+        $valorServico = $_POST['valorServico'];
+
+        // $connection->query("SET FOREIGN_KEY_CHECKS = 0");
+
+        $nomeServico = trim($connection->real_escape_string($nomeServico));
+        $valorServico = trim($connection->real_escape_string($valorServico));
+
+        $sql = "INSERT INTO SERVICO (nomeServico, valorServico) VALUES (?, ?)";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('si', $nomeServico, $valorServico);
+        $stmt->execute();
+
+        // $connection->query("SET FOREIGN_KEY_CHECKS = 1");
+
+
+        header('Location: servico.php?message=1');
+      } else {
+        header('Location: servico.php?message=2');
       }
     } catch (Exception $e) {
       echo "$connection->error";

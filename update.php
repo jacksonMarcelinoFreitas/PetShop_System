@@ -11,6 +11,10 @@
         }else if($_GET['tela'] == 2){
             updateProduto($id);
             header("location: produto.php?update=true&message=1&id=$id");
+        //servico
+        }else if($_GET['tela'] == 3){
+            updateServico($id);
+            header("location: servico.php?update=true&message=1&id=$id");
         //animal
         }else if($_GET['tela'] == 5){
             updateAnimal($id);
@@ -78,7 +82,8 @@
         } catch (Exception $e) {
             header("Location: produto.php?update=true&message=2&id=$id");
         }
-    }
+    };
+
     function updateAnimal($id){
 
         $connection = connection();
@@ -107,6 +112,35 @@
 
         } catch (Exception $e) {
             header("Location: animal.php?update=true&message=2&id=$id");
+        }
+    };
+
+    function updateServico($id){
+
+        $connection = connection();
+
+        try{
+            if(isset($_POST['form'])){
+                $idCliente = $_POST['idServico'];
+                $idAnimal = $_POST['nomeServico'];
+                $nomeAnimal = $_POST['valorServico'];
+
+            }else{
+                header("Location: servico.php?update=true&message=3&id=$id");
+            }
+
+            // $idServico = trim($connection->real_escape_string($idServico));
+            // $nomeServico = trim($connection->real_escape_string($nomeServico));
+            // $valorServico = trim($connection->real_escape_string($valorServico));
+
+            $sql = "UPDATE SERVICO SET nomeServico = ?, valorServico = ? WHERE idServico = ?";
+
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param('sdi', $nomeServico, $valorServico, $idServico);
+            $stmt->execute();
+            
+        } catch (Exception $e) {
+            header("Location: servico.php?update=true&message=2&id=$id");
         }
     }
 

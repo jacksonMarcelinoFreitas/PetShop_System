@@ -15,6 +15,13 @@
             header("location: produto.php?delete=true&id=$id");
         }
 
+        //servico
+        else if($_GET['action'] == 1 && $_GET['tela'] == 3){
+            header("location: servico.php?update=true&id=$id");
+        }else if($_GET['action'] == 2 && $_GET['tela'] == 3){
+            header("location: servico.php?delete=true&id=$id");
+        }
+
         //animal
         else if($_GET['action'] == 1 && $_GET['tela'] == 5){
             header("location: animal.php?update=true&id=$id");
@@ -159,6 +166,45 @@
         }
 
         $sql = "SELECT a.idAnimal, a.nomeAnimal, CONCAT(a.fk_idCliente, ' - ', c.nomeCliente) as idNomeCliente FROM ANIMAL a JOIN CLIENTE c ON a.fk_idCliente = c.idCliente";
+        $stmt = $connection->query($sql);
+
+        $connection -> close();
+
+        return $stmt;
+    };
+
+    function selectServico($id) {
+        $connection = connection();
+
+        if ($connection->connect_error) {
+            die("Erro na conexão com o banco de dados: " . $connection->connect_error);
+        }
+
+        if($id){
+
+            $sql = "SELECT * FROM SERVICO WHERE idServico=$id";
+            $stmt = $connection->query($sql);
+
+            if ($stmt === false) {
+                die("Erro na consulta: " . $connection->error);
+            }
+        }
+        else{
+            die("Erro problemas com o id do servico " . $connection->connect_error);
+        }
+        $connection->close();
+
+        return $stmt;
+    }
+
+    function selectAllServico(){
+        $connection = connection();
+
+        if ($connection->connect_error) {
+            die("Erro na conexão com o banco de dados: " . $connection->connect_error);
+        }
+
+        $sql = "SELECT * FROM SERVICO";
         $stmt = $connection->query($sql);
 
         $connection -> close();
