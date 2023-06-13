@@ -6,7 +6,7 @@
         function connection(){
             $servername = "localhost";
             $username = "root";
-            $password = "";
+            $password = "jackson1500";
             $database = "pet_shop_bd";
 
             // Cria a conexão
