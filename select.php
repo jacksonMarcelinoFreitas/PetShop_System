@@ -1,58 +1,79 @@
 <?php
 
+    if(isset($_GET['action'])){
+        $id = $_GET['id'];
+        if($_GET['action'] == 1){
+            header("location: cliente.php?id=$id&update=true");
+        }else if($_GET['action'] == 2){
+            header("location: cliente.php?id=$id&delete=true");
+        }
+    }
+
     require_once("./connection.php");
 
-
-    function select(){
-
+    function selectAllCliente(){
         $connection = connection();
-        $sql = "SELECT * FROM cliente";
-        $stmt = $connection->prepare($sql);
-        $stmt->execute();
+
+        if ($connection->connect_error) {
+            die("Erro na conexão com o banco de dados: " . $connection->connect_error);
+        }
+
+        $sql = "SELECT * FROM CLIENTE";
+        $stmt = $connection->query($sql);
+        // $stmt->execute();
+
+        $connection -> close();
+
+        return $stmt;
+
+    };
+
+    function selectCliente($id) {
+        $connection = connection();
+
+        if ($connection->connect_error) {
+            die("Erro na conexão com o banco de dados: " . $connection->connect_error);
+        }
+
+        if($id){
+
+            $sql = "SELECT * FROM CLIENTE WHERE id=$id";
+            $stmt = $connection->query($sql);
+
+            if ($stmt === false) {
+                die("Erro na consulta: " . $connection->error);
+            }
+        }
+        else{
+            die("Erro problemas com o id do cliente " . $connection->connect_error);
+        }
+        $connection->close();
 
         return $stmt;
     }
 
-
-    function showClientToEdit(){
+    function selectUsuario($id) {
         $connection = connection();
-        
-        $cliente = [];
-        $id = $_GET['id'];
+
+        if ($connection->connect_error) {
+            die("Erro na conexão com o banco de dados: " . $connection->connect_error);
+        }
 
         if($id){
-            $sql = $connection->prepare("SELECT * FROM cliente WHERE id_cliente = :id");
-            $sql->bindValue(':id', $id);
-            $sql->execute();
 
-            if($sql->rowCount() > 0){
-                $cliente = $sql->fetch(PDO::FETCH_ASSOC);
-                return $cliente;
-                // var_dump($cliente);
+            $sql = "SELECT * FROM USUARIO WHERE idUsuario=$id";
+            $stmt = $connection->query($sql);
+
+            if ($stmt === false) {
+                die("Erro na consulta: " . $connection->error);
             }
-        }else{
-            header("Location: exibir_cadastro.php");
-            exit;
         }
-    }
-
-    function selectSex($cliente){
-
-        if($cliente['sexo']){
-            $sexo = [
-                'masc' => '',
-                'femi' => ''
-            ];
-
-            if($cliente['sexo'] == 'masculino'){
-                return $sexo = ['masc' => 'checked', 'femi' => ''];
-            }else{
-                return $sexo = ['masc' => '', 'femi' => 'checked'];
-            }
-        }else{
-            echo "Por favor, selecione um sexo!";
+        else{
+            die("Erro problemas com o id do cliente " . $connection->connect_error);
         }
+        $connection->close();
 
+        return $stmt;
     }
 
 ?>

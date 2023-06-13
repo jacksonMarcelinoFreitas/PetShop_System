@@ -1,10 +1,9 @@
-
 <?php
-    require_once("./verificarSessao.php");
-    require_once("./select.php");
-    require_once("./notificacoes.php");
+  require_once("./verificarSessao.php");
+  require_once("./graphics.php");
+  require_once("./notificacoes.php");
+  
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -169,6 +168,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="./dashboard.php" class="nav-link">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>
+                                    Graficos
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-header">EXAMPLES</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -194,212 +202,134 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-        <!-- Main Sidebar Container -->
+      </div>
 
-        <!-- Formulario and Table -->
-        <div class="box-container">
-            <?php
+<!-- jQuery -->
+<script src="src/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="src/plugins/chart.js/Chart.min.js"></script>
+<!-- src App -->
+<script src="src/dist/js/adminlte.min.js"></script>
 
-                if (isset($_GET['id'])) {
-                    $id = $_GET['id'];
-                    $result = selectCompra($id);
-                    $row = $result->fetch_assoc();
-                }
+<script>
+  $(function () {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
 
-                if(isset($_GET['update'])) {
-            ?>
-                <div class="box-side">
-                    <h1>Atualizar Compra</h1>
-                    <form action="update.php" method="post" id="form" name="form">
-                        <input type="hidden" name="id" value=" <?= $row["idCompra"] ?>">
+    //--------------
+    //- AREA CHART -
+    //--------------
 
-                        <div class="form-box">
-                            <label for="data">Data da Compra:</label>
-                            <input type="text" id="data" name="data" placeholder="Y-m-d H:i:s" value=" <?= $row["dataCompra"] ?>">
-                        </div>
+    // Get context with jQuery - using jQuery's .get() method.
+    var areaChartCanvas = $('#areaChart').get(0).getContext('2d');
+    var valores = <?php echo json_encode($valores); ?>;
+    var nomesCliente = <?php echo json_encode($nomesCliente); ?>;
 
-                        <div class="form-box">
-                            <label for="valor">Valor Total:</label>
-                            <input type="text" id="valor" name="valor" placeholder="0,00" value=" <?= $row["valorTotal"] ?>" >
-                        </div>
+    var areaData = {
+        labels: nomesCliente,
+        datasets: [
+            {
+                label: 'Valor da Compra',
+                data: valores,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de fundo da área
+                borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda da área
+                borderWidth: 1 // Largura da borda da área
+            }
+        ]
+    };
 
-                        <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
-                    </form>
-                </div>
+    var areaOptions = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
 
-            <?php
-                }else if(isset($_GET['delete'])){
-            ?>
-                <div class="box-side">
-                    <h1>Excluir Compra</h1>
-                    <form action="delete.php?id=<?php echo $id ?>" method="post" id="form" name="form">
-                        <input type="hidden" name="id" value=" <?= $row["idCompra"]; ?>">
+    new Chart(areaChartCanvas, {
+        type: 'line',
+        data: areaData,
+        options: areaOptions
+    });
+    //-------------
+    //- DONUT CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    // Use a quantidade de funcionários para criar o gráfico usando Chart.js
+    var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
+        var donutData00 = {
+          labels: <?php echo json_encode($labels); ?>,
+          datasets: [{
+              data: <?php echo json_encode($data); ?>,
+              backgroundColor: <?php echo json_encode($backgroundColor); ?>
+          }]
+        };
+        var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        };
 
-                        <div class="form-box">
-                            <label for="data">Data da Compra:</label>
-                            <input type="text" id="data" name="data" placeholder="Y-m-d H:i:s" disabled value=" <?= $row["dataCompra"]; ?>">
-                        </div>
+        // Crie o gráfico de rosquinha (donut)
+        new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData00,
+            options: donutOptions
+        });
 
-                        <div class="form-box">
-                            <label for="valor">Valor Total:</label>
-                            <input type="text" id="valor" name="valor" placeholder="0,00" disabled value=" <?= $row["valorTotal"]; ?>" >
-                        </div>
+    //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+    var donutData = <?php echo json_encode($donutData); ?>;
+    var donutOptions00 = <?php echo json_encode($donutOptions); ?>;
 
-                        <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
-                    </form>
-                </div>
-            <?php
-                }else{
-            ?>
-                <div class="box-side">
-                    <h1>Cadastrar Compra</h1>
-                    <form action="insert.php?tela=4" method="post" id="form" name="form">
-                        <!-- <input type="hidden" name="id"> -->
+    new Chart(pieChartCanvas, {
+        type: 'doughnut',
+        data: donutData,
+        options: donutOptions00
+    });
 
-                        <div class="form-box">
-                            <label for="data">Data da Compra:</label>
-                            <input type="text" id="data" name="data" placeholder="Y-m-d H:i:s" >
-                        </div>
+    //---------------------
+    //- BAR CHART -
+    //---------------------
+    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    var nomes = <?php echo json_encode($nomes); ?>;
+    var precos = <?php echo json_encode($precos); ?>;
 
-                        <div class="form-box">
-                            <label for="valor">Valor Total:</label>
-                            <input type="text" id="valor" name="valor" placeholder="0,00" required>
-                        </div>
+    var barData = {
+        labels: nomes,
+        datasets: [
+            {
+                label: 'Preço',
+                data: precos,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)', // Cor de fundo das barras
+                borderColor: 'rgba(54, 162, 235, 1)', // Cor da borda das barras
+                borderWidth: 1 // Largura da borda das barras
+            }
+        ]
+    };
 
-                        <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
-                    </form>
-                </div>
-            <?php
-                }
-            ?>
+    var barOptions = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
 
-            <div class="box-side">
-                <h1>Lista de Compras</h1>
-                <div class="container-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Data da Compra</th>
-                                <th>Valor Total</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <?php
-                                // include("./select.php");
-                                $result = selectAllCompra();
-
-                                if (isset($error_message)) :
-                            ?>
-
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="alert alert-danger"><?php echo $error_message; ?></div>
-                                    </td>
-                                </tr>
-
-                            <?php else :
-
-                                if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-
-                            ?>
-                                <tr>
-                                    <td><?php echo $row["dataCompra"]; ?></td>
-                                    <td><?php echo $row["valorTotal"]; ?></td>
-                                    <td>
-                                        <!-- <a href="#" class="edit-icon fa-solid fa-pen-to-square"></a> -->
-                                        <!-- <a href="#" class="delete-icon fa-solid fa-trash-can"></a> -->
-
-                                        <a href="compra.php?id=<?php echo $row["idCompra"]?>&action2=1" class="edit-icon">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <a href="compra.php?id=<?php echo $row["idCompra"]?>&action2=2" class="delete-icon">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                            <?php
-
-                                }
-
-                                } else {
-
-                            ?>
-                                    <tr>
-                                        <td colspan="4">Nenhuma compra encontrado.</td>
-                                    </tr>
-                            <?php
-
-                                }
-                                endif;
-
-                            ?>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-
-
-            <!-- Control Sidebar -->
-            <!-- <aside class="control-sidebar control-sidebar-dark"> -->
-                <!-- Control sidebar content goes here -->
-            <!-- </aside> -->
-            <!-- /.control-sidebar -->
-
-        </div>
-        <!-- Formulario and Table -->
-
-        <!-- Footer -->
-        <!-- <footer class="main-footer d-flex justify-content-start">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">Ducão PetShop</a>.</strong> All rights
-            reserved.
-        </footer> -->
-        <!-- Footer -->
-
-        <!-- Scripts-->
-        <!-- Bootstrap CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <!-- jQuery -->
-        <script src="./src/plugins/jquery/jquery.min.js"></script>
-        <!-- Bootstrap 4 -->
-        <script src="./src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="./src/dist/js/adminlte.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="./src/dist/js/demo.js"></script>
-
-        <!-- Plugin Toastr -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-        <script>
-
-                // toastr.options = {
-                //     "closeButton": true,
-                //     "debug": false,
-                //     "newestOnTop": false,
-                //     "progressBar": true,
-                //     "positionClass": "toast-top-right",
-                //     "preventDuplicates": false,
-                //     "onclick": null,
-                //     "showDuration": "60000",
-                //     "hideDuration": "60000",
-                //     "timeOut": "60000",
-                //     "extendedTimeOut": "1000",
-                //     "showEasing": "swing",
-                //     "hideEasing": "linear",
-                //     "showMethod": "fadeIn",
-                //     "hideMethod": "fadeOut"
-                // };
-
-                // toastr.info("Mensagem aqui");
-
-        </script>
+    new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barData,
+        options: barOptions
+    });
+  })
+</script>
 </body>
-
 </html>
