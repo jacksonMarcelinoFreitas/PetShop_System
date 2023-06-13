@@ -156,10 +156,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars nav-link-color"></i></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-        <a href="./home.php" class="nav-link nav-link-color">Home</a>
+        <a href="#" class="nav-link nav-link-color">Home</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-        <a href="./contato.php" class="nav-link nav-link-color">Contato</a>
+        <a href="#" class="nav-link nav-link-color">Contato</a>
     </li>
     </ul>
 
@@ -436,7 +436,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        
+
 
 <script>
   $(function () {

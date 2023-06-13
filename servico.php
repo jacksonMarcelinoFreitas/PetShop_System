@@ -47,10 +47,10 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars nav-link-color"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="./home.php" class="nav-link nav-link-color">Home</a>
+                    <a href="#" class="nav-link nav-link-color">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="./contato.php" class="nav-link nav-link-color">Contato</a>
+                    <a href="#" class="nav-link nav-link-color">Contato</a>
                 </li>
                 </ul>
 

@@ -75,7 +75,7 @@
                 $_SESSION['idUsuario'] = $row['idUsuario'];
 
                 $connection->close();
-                header('Location: index.php?loged=true');
+                header('Location: dashboard.php?loged=true');
                 exit;
             }
             else{

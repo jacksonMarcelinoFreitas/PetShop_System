@@ -15,6 +15,10 @@
         }else if($_GET['tela'] == 3){
             updateServico($id);
             header("location: servico.php?update=true&message=1&id=$id");
+        //compra
+        }else if($_GET['tela'] == 4){
+            updateCompra($id);
+            header("location: compra.php?update=true&message=1&id=$id");
         //animal
         }else if($_GET['tela'] == 5){
             updateAnimal($id);
@@ -139,6 +143,33 @@
 
         } catch (Exception $e) {
             header("Location: servico.php?update=true&message=2&id=$id");
+        }
+    }
+
+    function updateCompra($id){
+
+        $connection = connection();
+        try{
+            if(isset($_POST['form'])){
+                $id = $_POST['idCompra'];
+                $dataCompra = $_POST['dataCompra'];
+                $valorCompra = $_POST['valorCompra'];
+            }else{
+                header("Location: compra.php?update=true&message=3&id=$id");
+            }
+
+            $id = trim($connection->real_escape_string($id));
+            $dataCompra = trim($connection->real_escape_string($dataCompra));
+            $valorCompra= trim($connection->real_escape_string($valorCompra));
+
+            $sql = "UPDATE SERVICO SET dataCompra = ?, valorTotal = ? WHERE idCompra = ?";
+
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param('sdi', $dataCompra, $valorCompra, $id);
+            $stmt->execute();
+
+        } catch (Exception $e) {
+            header("Location: compra.php?update=true&message=2&id=$id");
         }
     }
 

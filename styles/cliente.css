@@ -175,8 +175,7 @@ option:disabled {
     font-size: 14px;
 }
 
-form input[type="submit"],
-.voltar {
+form input[type="submit"], .voltar{
     display: flex;
     align-items: center;
     justify-content: center;
