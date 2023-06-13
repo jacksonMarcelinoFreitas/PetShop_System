@@ -1,5 +1,44 @@
+:root{
+    --yellow-dark: #FFC300;
+    --yellow-light: #FFD60A;
+    --blue-100: #003566;
+    --blue-200: #001D3D;
+    --gray-100: #d9dce5;
+    --gray-200: #979DAC;
+    --gray-300: #7D8597;
+    --gray-400: #5C677D;
+    --black: #000000;
+    --white: #ffffff;
+    --green: #20bf55;
+    --blue: #2892d7;
+    --red: #d63230;
+    --red: #d63230;
+}
+
 * {
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+.wrapper{
+    background-color: var(--gray-100);
+}
+
+.nav-color{
+    background-color: var(--blue-200);
+}
+.aside-color{
+    background-color: var(--blue-100);
+}
+
+.nav-link-color{
+    color: var(--yellow-light) !important;
+}
+
+.nav-link-user{
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    gap: 8px !important;
 }
 
 h1 {
@@ -111,10 +150,13 @@ form input[type="submit"], .voltar{
     width: 100%;
     height: 100%;
 
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    overflow: hidden;
 
-    background-color: rgb(88, 88, 88);
+    background-color: var(--gray-100);
     border-radius: 8px;
+
+    /* padding-right: 8px; */
 }
 
 table {
@@ -192,12 +234,12 @@ tbody tr:nth-child(odd) {
     align-items: center;
     justify-content: center;
 
-    background-color: rgb(96, 96, 96);
+    background-color: var(--gray-100);
     border-radius: 50%;
     width: 30px;
     height: 30px;
     overflow: hidden;
     background-position: center;
     background-size: cover;
-    border: 1px solid #b2b2b2;
+    border: 1px solid var(--yellow-light);
 }
