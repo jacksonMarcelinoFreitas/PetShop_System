@@ -25,7 +25,7 @@
         <title>Ducão - PetShop</title>
     </head>
 
-    <body class="hold-transition sidebar-collapse layout-top-nav">
+    <body class="hold-transition sidebar-mini sidebar-collapse">
 
         <div class="wrapper">
             <?php
@@ -37,380 +37,417 @@
                 $primeirasPalavras = array_slice($palavras, 0, 2);
                 $nomeUser = implode(" ", $primeirasPalavras);
             ?>
-            <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-                <div class="container">
-                    <a href="./src/index3.html" class="navbar-brand">
-                        <img src="./src/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                            class="brand-image img-circle elevation-3" style="opacity: .8">
-                        <span class="brand-text font-weight-light">Ducão Petshop</span>
-                    </a>
+           <!-- /.navbar -->
+           <nav class="main-header navbar navbar-expand navbar-white navbar-light nav-color">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars nav-link-color"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="./home.php" class="nav-link nav-link-color">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="./contato.php" class="nav-link nav-link-color">Contato</a>
+                </li>
+                </ul>
 
-                    <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
-                        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item nav-link-user" style="display: flex; align-items: center; flex-direction: row; gap: 8px">
 
-                    <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-                        <!-- Left navbar links -->
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                                    <i class="fas fa-bars"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./src/index3.html" class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Contato</a>
-                            </li>
-                        </ul>
+                        <div style="display: flex; align-items: end; flex-direction: column; line-height:16px;">
+                            <span  style="font-size: 14px; color:#FFC300;"><?php echo $nomeUser ?></span>
+                            <a href="./verificarSessao.php?action=1" style="font-size: 12px; color: #FFD60A">Sair</a>
+                        </div>
 
-                        <!-- Right navbar links -->
-                        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                            <li class="nav-item" style="display: flex; align-items: center; flex-direction: row; gap: 8px">
-                                <div style="display: flex; align-items: end; flex-direction: column; line-height:16px;">
-                                    <span  style="font-size: 14px" ><?php echo $nomeUser ?></span>
-                                    <a href="./verificarSessao.php?action=1" style="font-size: 12px">Sair</a>
-                                </div>
-                                <a href="./perfilUsuario.php" style="display: flex; align-items: center; gap: 12px">
-                                    <div class="avatar" style="background-image: url('<?php echo $rowUsuario["avatarUsuario"] ?>')" >
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                        <a href="./perfilUsuario.php" style="display: flex; align-items: center; gap: 12px">
+                            <div class="avatar" style="background-image: url('<?php echo $rowUsuario["avatarUsuario"] ?>')" >
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt nav-link-color"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                        </a>
+                    </li> -->
+                </ul>
             </nav>
             <!-- /.navbar -->
 
-            <!-- Aside -->
-            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-dark-primary elevation-4 aside-color">
                 <!-- Brand Logo -->
-                <a href="./src/index3.html" class="brand-link">
-                    <img src="./src/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                <a href="./home.php" class="brand-link">
+                    <div style="
+                        overflow: hidden;
+                        background: url('./src/imagens/logo_ducao_circle.png');
+                        background-position: center;
+                        background-size: cover;
+                        width: 33px;
+                        height: 33px;"
+                        class="brand-image img-circle elevation-3">
+                    </div>
                     <span class="brand-text font-weight-light">Ducão Petshop</span>
                 </a>
+
                 <!-- Sidebar -->
                 <div class="sidebar">
-                    <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-center">
-                        <div class="avatar" style="background-image: url('<?php echo $rowUsuario["avatarUsuario"] ?>');">
+                <!-- Sidebar user (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <div
+                                class="img-circle elevation-2"
+                                alt="User Image"
+                                style="
+                                background-image: url('<?php echo $rowUsuario["avatarUsuario"] ?>');
+                                overflow: hidden;
+                                background-position: center;
+                                background-size: cover;
+                                width: 33px;
+                                height: 33px;
+                                border: 1px solid #FFC300">
+                            </div>
                         </div>
                         <div class="info">
-                            <a href="#" class="d-block"><?php echo $nomeUser ?></a>
+                            <a href="perfilUsuario.php" class="d-block"><?php echo $nomeUser ?></a>
                         </div>
                     </div>
-                    <!-- Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                            data-accordion="false">
-                            <li class="nav-header">GERENCIAR</li>
-                            <li class="nav-item">
-                                <a href="./cliente.php" class="nav-link">
-                                    <i class="nav-icon fas fa-duotone fa-person"></i>
-                                    <p>
-                                        Clientes
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./animal.php" class="nav-link">
-                                    <i class="nav-icon fas fa-solid fa-paw"></i>
-                                    <p>
-                                        Animais
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./perfilUsuario.php" class="nav-link">
-                                    <i class="nav-icon fas fa-duotone fa-user"></i>
-                                    <p>
-                                        Usuários
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./produto.php" class="nav-link">
-                                    <i class="nav-icon fas fa-solid fa-cart-shopping"></i>
-                                    <p>
-                                        Produtos
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./compra.php" class="nav-link">
-                                    <i class="nav-icon fas fa-duotone fa-bag-shopping"></i>
-                                    <p>
-                                        Compras
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./servico.php" class="nav-link">
-                                    <i class="nav-icon fas fa-duotone fa-bell-concierge"></i>
-                                    <p>
-                                        Serviços
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-header">EXAMPLES</li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-circle"></i>
-                                    <p>
-                                        Search
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./src/search/simple.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Simple Search</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </nav>
-                    <!-- / Menu -->
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-header">GERENCIAR</li>
+                        <li class="nav-item">
+                            <a href="./cliente.php" class="nav-link">
+                                <i class="nav-icon fas fa-duotone fa-person nav-link-color"></i>
+                                <p>
+                                    Clientes
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./animal.php" class="nav-link">
+                                <i class="nav-icon fas fa-solid fa-paw nav-link-color"></i>
+                                <p>
+                                    Animais
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./perfilUsuario.php" class="nav-link">
+                                <i class="nav-icon fas fa-duotone fa-user nav-link-color"></i>
+                                <p>
+                                    Usuários
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./produto.php" class="nav-link">
+                                <i class="nav-icon fas fa-solid fa-cart-shopping nav-link-color"></i>
+                                <p>
+                                    Produtos
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./compra.php" class="nav-link">
+                                <i class="nav-icon fas fa-duotone fa-bag-shopping nav-link-color"></i>
+                                <p>
+                                    Compras
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./servico.php" class="nav-link">
+                                <i class="nav-icon fas fa-duotone fa-bell-concierge nav-link-color"></i>
+                                <p>
+                                    Serviços
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./dashboard.php" class="nav-link">
+                                <i class="nav-icon fas fa-solid fa-chart-simple nav-link-color"></i>
+                                <p>
+                                    Dashboards
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
                 </div>
-                <!-- / sidebar -->
+                <!-- /.sidebar -->
             </aside>
-            <!-- Aside -->
 
-            <!-- Formulario and Table -->
-            <div class="box-container">
-                <?php
-                    if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
-                        $result = selectProduto($id);
-                        $row = $result->fetch_assoc();
-                    }
 
-                    if(isset($_GET['update'])) {
-                ?>
-                    <div class="box-side">
-                        <h1>Atualizar Produto</h1>
-                        <form action="update.php?tela=2&id=<?php echo $id ?>" name="form" method="post" id="form" >
-                            <input type="hidden" name="id" value="<?php $row["idProduto"] ?>">
-
-                            <div class="form-box">
-                                <label for="nome">Nome do produto:</label>
-                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" value="<?php echo $row["nomeProduto"] ?>" required>
-                            </div>
-
-                            <div class="form-box">
-                                <label for="codigo">Código:</label>
-                                <input type="number" name="codigo" id="codigo" placeholder="01789216" value="<?php echo $row["codProduto"] ?>" required>
-                            </div>
-
-                            <div class="form-box">
-                                <label for="valor">Valor:</label>
-                                <input type="text" name="valor" id="valor" placeholder="R$90,00" value=" <?php echo $row["valorProduto"] ?>" required>
-                            </div>
-
-                            <div class="form-box">
-                                <label for="descricao">Descrição:</label>
-                                <textarea type="text" name="descricao" id="descricao" placeholder="Descrever o produto." required><?php echo $row["descricaoProduto"] ?></textarea>
-                            </div>
-
-                            <div class="form-button">
-                                <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
-                                <a class="voltar" href="./produto.php">Voltar</a>
-                            </div>
-                        </form>
-                    </div>
-
-                <?php
-                    }else if(isset($_GET['delete'])){
-                ?>
-                    <div class="box-side">
-                        <h1>Excluir Produto</h1>
-                        <form action="delete.php?tela=2&id=<?php echo $id ?>" name="form" method="post" id="form">
-                            <input type="hidden" name="id" value="<?php $row["idProduto"] ?>">
-
-                            <div class="form-box">
-                                <label for="nome">Nome do produto:</label>
-                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" value="<?php echo $row["nomeProduto"] ?>" disabled>
-                            </div>
-
-                            <div class="form-box">
-                                <label for="codigo">Código:</label>
-                                <input type="number" name="codigo" id="codigo" placeholder="01789216" value="<?php echo $row["codProduto"] ?>" disabled>
-                            </div>
-
-                            <div class="form-box">
-                                <label for="valor">Valor:</label>
-                                <input type="text" name="valor" id="valor" placeholder="R$90,00" value=" <?php echo $row["valorProduto"] ?>" disabled>
-                            </div>
-
-                            <div class="form-box">
-                                <label for="descricao">Descrição:</label>
-                                <textarea type="text" name="descricao" id="descricao" placeholder="Descrever o produto." disabled><?php echo $row["descricaoProduto"] ?></textarea>
-                            </div>
-
-                            <div class="form-button">
-                                <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
-                                <a class="voltar" href="./produto.php">Voltar</a>
-                            </div>
-                        </form>
-                    </div>
-                <?php
-                    }else{
-                ?>
-                    <div class="box-side">
-                        <h1>Cadastrar Produto</h1>
-                          <form action="insert.php?tela=2" name="form" method="post" id="form">
-                            <div class="form-box">
-                                <label for="nome">Nome do produto:</label>
-                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" required >
-                            </div>
-
-                            <div class="form-box">
-                                <label for="codigo">Código:</label>
-                                <input type="number" name="codigo" id="codigo" placeholder="01789216"  required >
-                            </div>
-
-                            <div class="form-box">
-                                <label for="valor">Valor:</label>
-                                <input type="number" name="valor" id="valor" placeholder="R$90,00" required >
-                            </div>
-
-                            <div class="form-box">
-                                <label for="descricao">Descrição:</label>
-                                <textarea type="textarea" name="descricao" id="descricao" placeholder="Descrição do produto." value="<?php $row["descricaoProduto"] ?>"></textarea>
-                            </div>
-
-                            <div class="form-button">
-                                <input type="submit" name="form" value="Cadastrar" style="background-color: rgb(177, 255, 177); color: rgb(58, 99, 58); ">
-                            </div>
-                        </form>
-                    </div>
-                <?php
-                    }
-                ?>
-
-                <div class="box-side">
-                    <h1>Lista de Produtos</h1>
-                    <div class="container-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Código</th>
-                                    <th>Valor</th>
-                                    <th>Descrição</th>
-                                    <th>Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Formulario and Table -->
+                            <div class="box-container">
                                 <?php
-                                    $result = selectAllProduto();
-                                    if (isset($error_message)) :
-                                ?>
-                                    <tr>
-                                        <td colspan="4">
-                                            <div class="alert alert-danger"><?php echo $error_message; ?></div>
-                                        </td>
-                                    </tr>
+                                    if (isset($_GET['id'])) {
+                                        $id = $_GET['id'];
+                                        $result = selectProduto($id);
+                                        $row = $result->fetch_assoc();
+                                    }
 
-                                <?php else :
-                                    if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
+                                    if(isset($_GET['update'])) {
                                 ?>
-                                    <tr>
-                                        <td><?php echo $row["nomeProduto"]; ?></td>
-                                        <td><?php echo $row["codProduto"]; ?></td>
-                                        <td><?php echo $row["valorProduto"]; ?></td>
-                                        <td><?php echo $row["descricaoProduto"]; ?></td>
-                                        <td>
-                                            <div>
-                                                <a href="select.php?tela=2&id=<?php echo $row["idProduto"] ?>&action=1" class="edit-icon">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </a>
-                                                <a href="select.php?tela=2&id=<?php echo $row["idProduto"] ?>&action=2" class="delete-icon">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </a>
+                                    <div class="box-side">
+                                        <h1>Atualizar Produto</h1>
+                                        <form action="update.php?tela=2&id=<?php echo $id ?>" name="form" method="post" id="form" >
+                                            <input type="hidden" name="id" value="<?php $row["idProduto"] ?>">
+
+                                            <div class="form-box">
+                                                <label for="nome">Nome do produto:</label>
+                                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" value="<?php echo $row["nomeProduto"] ?>" required>
                                             </div>
-                                        </td>
-                                    </tr>
-                                <?php
-                                    }
-                                    } else {
 
+                                            <div class="form-box">
+                                                <label for="codigo">Código:</label>
+                                                <input type="number" name="codigo" id="codigo" placeholder="01789216" value="<?php echo $row["codProduto"] ?>" required>
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="valor">Valor:</label>
+                                                <input type="text" name="valor" id="valor" placeholder="R$90,00" value=" <?php echo $row["valorProduto"] ?>" required>
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="descricao">Descrição:</label>
+                                                <textarea type="text" name="descricao" id="descricao" placeholder="Descrever o produto." required><?php echo $row["descricaoProduto"] ?></textarea>
+                                            </div>
+
+                                            <div class="form-button">
+                                                <input type="submit" name="form" value="Atualizar" style="background-color: #FFC300; color: #000000;">
+                                                <a class="voltar" href="./produto.php">Voltar</a>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                <?php
+                                    }else if(isset($_GET['delete'])){
                                 ?>
-                                    <tr>
-                                        <td colspan="4">Nenhum produto encontrado.</td>
-                                    </tr>
+                                    <div class="box-side">
+                                        <h1>Excluir Produto</h1>
+                                        <form action="delete.php?tela=2&id=<?php echo $id ?>" name="form" method="post" id="form">
+                                            <input type="hidden" name="id" value="<?php $row["idProduto"] ?>">
+
+                                            <div class="form-box">
+                                                <label for="nome">Nome do produto:</label>
+                                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" value="<?php echo $row["nomeProduto"] ?>" disabled>
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="codigo">Código:</label>
+                                                <input type="number" name="codigo" id="codigo" placeholder="01789216" value="<?php echo $row["codProduto"] ?>" disabled>
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="valor">Valor:</label>
+                                                <input type="text" name="valor" id="valor" placeholder="R$90,00" value=" <?php echo $row["valorProduto"] ?>" disabled>
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="descricao">Descrição:</label>
+                                                <textarea type="text" name="descricao" id="descricao" placeholder="Descrever o produto." disabled><?php echo $row["descricaoProduto"] ?></textarea>
+                                            </div>
+
+                                            <div class="form-button">
+                                                <input type="submit" name="form" value="Excluir" style="background-color: #FFC300; color: #000000;">
+                                                <a class="voltar" href="./produto.php">Voltar</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                <?php
+                                    }else{
+                                ?>
+                                    <div class="box-side">
+                                        <h1>Cadastrar Produto</h1>
+                                        <form action="insert.php?tela=2" name="form" method="post" id="form">
+                                            <div class="form-box">
+                                                <label for="nome">Nome do produto:</label>
+                                                <input type="text" name="nome" id="nome" placeholder="Shampoo Cat-Dog" required >
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="codigo">Código:</label>
+                                                <input type="number" name="codigo" id="codigo" placeholder="01789216"  required >
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="valor">Valor:</label>
+                                                <input type="number" name="valor" id="valor" placeholder="R$90,00" required >
+                                            </div>
+
+                                            <div class="form-box">
+                                                <label for="descricao">Descrição:</label>
+                                                <textarea type="textarea" name="descricao" id="descricao" placeholder="Descrição do produto." value="<?php $row["descricaoProduto"] ?>"></textarea>
+                                            </div>
+
+                                            <div class="form-button">
+                                                <input type="submit" name="form" value="Cadastrar" style="background-color: #FFC300; color: #000000;">
+                                            </div>
+                                        </form>
+                                    </div>
                                 <?php
                                     }
-                                    endif;
                                 ?>
-                            </tbody>
-                        </table>
+
+                                <div class="box-side">
+                                    <h1>Lista de Produtos</h1>
+                                    <div class="container-table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Código</th>
+                                                    <th>Valor</th>
+                                                    <th>Descrição</th>
+                                                    <th>Ação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                    $result = selectAllProduto();
+                                                    if (isset($error_message)) :
+                                                ?>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <div class="alert alert-danger"><?php echo $error_message; ?></div>
+                                                        </td>
+                                                    </tr>
+
+                                                <?php else :
+                                                    if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $row["nomeProduto"]; ?></td>
+                                                        <td><?php echo $row["codProduto"]; ?></td>
+                                                        <td><?php echo $row["valorProduto"]; ?></td>
+                                                        <td><?php echo $row["descricaoProduto"]; ?></td>
+                                                        <td>
+                                                            <div>
+                                                                <a href="select.php?tela=2&id=<?php echo $row["idProduto"] ?>&action=1" class="edit-icon">
+                                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                                </a>
+                                                                <a href="select.php?tela=2&id=<?php echo $row["idProduto"] ?>&action=2" class="delete-icon">
+                                                                    <i class="fa-solid fa-trash-can"></i>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                    }
+                                                    } else {
+
+                                                ?>
+                                                    <tr>
+                                                        <td colspan="4">Nenhum produto encontrado.</td>
+                                                    </tr>
+                                                <?php
+                                                    }
+                                                    endif;
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Formulario and Table -->
+                        </div>
                     </div>
                 </div>
+            </section>
+            <!-- /.content -->
+
             </div>
-            <!-- Formulario and Table -->
+        <!-- /.content-wrapper -->
 
-            <!-- Scripts-->
-            <!-- Bootstrap CDN -->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-            <!-- jQuery -->
-            <script src="./src/plugins/jquery/jquery.min.js"></script>
-            <!-- Bootstrap 4 -->
-            <script src="./src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <!-- AdminLTE App -->
-            <script src="./src/dist/js/adminlte.min.js"></script>
-            <!-- AdminLTE for demo purposes -->
-            <script src="./src/dist/js/demo.js"></script>
-            <!-- Plugin Toastr -->
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <footer class="main-footer footer-color">
+                <div class="box-footer">
+                    <b>Cuidar do que faz bem!</b>
+                </div>
+                <div class="box-footer">
+                    <strong>Copyright &copy; <a href="https://adminlte.io">Ducao PetShop</a>.</strong>
+                </div>
 
-            <script>
-                toastr.options = {
-                    "closeButton": true,
-                    "debug": true,
-                    "newestOnTop": true,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "1000",
-                    "hideDuration": "1000",
-                    "timeOut": "1500",
-                    "extendedTimeOut": "2000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
-            </script>
-            <?php
-                if(isset($_GET['message'])){
-                    if ($_GET['message'] == 1) {
-                        echo "<script>toastr.success('Sucesso !')</script>";
-                    }
-                    if ($_GET['message'] == 2) {
-                        echo "<script>toastr.error('Erro !')</script>";
-                    }
-                    // if ($_GET['message'] == 3) {
-                    //     echo "<script>toastr.info('Texto')</script>";
-                    // }
-                    // if ($_GET['message'] == 4) {
-                    //     echo "<script>toastr.info('Texto')</script>";
-                    // }
+            </footer>
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- Scripts-->
+        <!-- Bootstrap CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- jQuery -->
+        <script src="./src/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="./src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="./src/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="./src/dist/js/demo.js"></script>
+        <!-- Plugin Toastr -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "1500",
+                "extendedTimeOut": "2000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+        </script>
+        <?php
+            if(isset($_GET['message'])){
+                if ($_GET['message'] == 1) {
+                    echo "<script>toastr.success('Sucesso !')</script>";
                 }
-            ?>
+                if ($_GET['message'] == 2) {
+                    echo "<script>toastr.error('Erro !')</script>";
+                }
+                // if ($_GET['message'] == 3) {
+                //     echo "<script>toastr.info('Texto')</script>";
+                // }
+                // if ($_GET['message'] == 4) {
+                //     echo "<script>toastr.info('Texto')</script>";
+                // }
+            }
+        ?>
     </body>
 </html>

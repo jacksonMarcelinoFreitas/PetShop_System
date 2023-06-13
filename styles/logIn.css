@@ -1,3 +1,19 @@
+:root{
+    --yellow-dark: #FFC300;
+    --yellow-light: #FFD60A;
+    --blue-100: #003566;
+    --blue-200: #001D3D;
+    --gray-100: #d9dce5;
+    --gray-200: #979DAC;
+    --gray-300: #7D8597;
+    --gray-400: #5C677D;
+    --black: #000000;
+    --white: #ffffff;
+    --green: #20bf55;
+    --blue: #2892d7;
+    --red: #d63230;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +31,7 @@ body{
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-area: 
+    grid-area:
     "background"
     "form";
     align-items: center;
@@ -25,9 +41,9 @@ div.container-background{
     grid-area: "background";
     width: 100%;
     height: 100%;
-    background-color: #1BBCB5;
+    background-color: var(--blue-200);
 
-    background-image: url("../src/imagens/background_login.jpg");
+    /* background-image: url("../src/imagens/background_login.jpg"); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -37,7 +53,7 @@ section.container-form{
     grid-area: "form";
     max-width: 100%;
     height: 100%;
-    background-color: #A9C3B8;
+    background-color: var(--yellow-dark);
 
     display: flex;
     align-items: center;
@@ -59,13 +75,13 @@ section form{
 
 form h1 {
     font-size: 28px;
-    color: #252F48;
+    color: var(--gray-400);
     margin-bottom: 32px;
 }
 
 form label{
     font-weight: 500;
-    color: #252F48;
+    color: var(--gray-200);
     margin-bottom: 6px;
 }
 
@@ -75,10 +91,10 @@ form input{
 
     font-size: 14px;
     padding: 0 8px;
-    color: black;
+    color: var(--black);
     border-radius: 8px;
     border: none;
-    background-color: rgba(169, 195, 184, 30%);
+    background-color: var(--gray-100);
 }
 
 form .box-form{
@@ -97,17 +113,17 @@ form .box-form.last{
 
 form .box-form span{
     font-size: 12px;
-    color: #1BBCB5;
+    color: var(--yellow-light);
 }
 
 form .box-form a{
     text-decoration: none;
-    color: #1BBCB5;
+    color: var(--yellow-dark);
     font-weight: 700;
 }
 
 input::placeholder{
-    color: rgba(128, 128, 128, 40%);
+    color: var(--gray-300);
     font-size: 14px;
 }
 
@@ -118,12 +134,12 @@ form button{
     border-radius: 8px;
 
     border: none;
-    color: #1BBCB5;
+    color: var(--yellow-dark);
 
     font-size: 18px;
     font-weight: 700;
 
-    background-color: #252F48;
+    background-color: var(--blue-100);
 }
 
 form .box-option{
@@ -158,12 +174,12 @@ form .box-radio > label{
     color: #252F48;
 }
 
+.container-background{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-
-
-
-
-
-
-
-
+img{
+    width: 500px;
+}

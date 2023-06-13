@@ -18,7 +18,7 @@
 <body>
     <div class="container">
         <div class="container-background">
-
+            <img src="./src/imagens/logo_ducao_full_white.png" alt="">
         </div>
         <section class="container-form">
             <form action="validarUsuario.php?tela=2" method="post" id="form" name="form">

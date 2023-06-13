@@ -36,6 +36,7 @@
             </form>
         </section>
         <div class="container-background">
+            <img src="./src/imagens/logo_ducao_full_white.png" alt="">
         </div>
     </div>
 </body>

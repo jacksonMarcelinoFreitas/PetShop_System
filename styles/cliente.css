@@ -124,6 +124,10 @@ form {
     color: var(--white);
 }
 
+textarea:disabled, input:disabled{
+    color: var(--gray-100);
+}
+
 option{
     background-color: var(--gray-100);
     color: var(--black);
