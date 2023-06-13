@@ -230,7 +230,7 @@
                                         </div>
 
                                         <div class="form-button">
-                                            <input type="submit" name="form" value="Atualizar" style="background-color: rgb(27, 118, 255); color: rgb(224, 240, 255);">
+                                            <input type="submit" name="form" value="Atualizar" style="background-color: #FFC300; color: #000000;">
                                             <a class="voltar" href="./cliente.php">Voltar</a>
                                         </div>
                                     </form>
@@ -260,7 +260,7 @@
                                         </div>
 
                                         <div class="form-button">
-                                            <input type="submit" name="form" value="Excluir" style="background-color: rgb(224, 58, 58); color: rgb(255, 202, 202);">
+                                            <input type="submit" name="form" value="Excluir" style="background-color: #FFC300; color: #000000;">
                                             <a class="voltar" href="./cliente.php">Voltar</a>
                                         </div>
                                     </form>
@@ -289,7 +289,7 @@
                                         </div>
 
                                         <div class="form-button">
-                                            <input type="submit" name="form" value="Cadastrar" style="background-color: #FFC300; color: #000000; ">
+                                            <input type="submit" name="form" value="Cadastrar" style="background-color: #FFC300; color: #000000;">
                                         </div>
                                     </form>
                                 </div>

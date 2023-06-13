@@ -12,7 +12,6 @@
     --green: #20bf55;
     --blue: #2892d7;
     --red: #d63230;
-    --red: #d63230;
 }
 
 * {
@@ -125,6 +124,16 @@ form {
     color: var(--white);
 }
 
+option{
+    background-color: var(--gray-100);
+    color: var(--black);
+}
+
+option:disabled{
+    background-color: var(--gray-100);
+    color: var(--gray-400);
+}
+
 .form-box textarea{
     height: 100%;
     resize: none;
@@ -158,7 +167,13 @@ form input[type="submit"], .voltar{
 }
 
 .voltar{
+    background-color: var(--yellow-light);
+    color: var(--black);
+}
+
+.voltar:hover {
     background-color: var(--yellow-dark);
+    transition: all 0.5s;
     color: var(--black);
 }
 
@@ -248,13 +263,15 @@ tbody tr:nth-child(odd) {
     padding: 0 4px;
 }
 
-.edit-icon {
+.edit-icon, .delete-icon {
     color: var(--yellow-light);
 }
 
-.delete-icon {
-    color: var(--yellow-light);
+.edit-icon:hover, .delete-icon:hover {
+    color: var(--yellow-dark);
+    transition: all 0.5s;
 }
+
 
 .avatar{
     display: flex;
