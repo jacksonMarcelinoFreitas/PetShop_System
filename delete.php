@@ -81,6 +81,8 @@
 
         $connection = connection();
 
+        $connection->query("SET FOREIGN_KEY_CHECKS = 0");
+
         try{
             $sql = "DELETE FROM SERVICO WHERE idServico = ?";
 
@@ -92,6 +94,9 @@
         } catch (Exception $e) {
             header("Location: servico.php?message=2");
         }
+
+        $connection->query("SET FOREIGN_KEY_CHECKS = 1");
+
 
     }
 ?>

@@ -32,7 +32,7 @@
       <?php
             $resultUsuario = selectUsuario($_SESSION['idUsuario']);
             $rowUsuario = $resultUsuario->fetch_assoc();
-            
+
             //Faz o limite de palavras
             $palavras = explode(" ", $rowUsuario["nomeUsuario"]);
             $primeirasPalavras = array_slice($palavras, 0, 2);

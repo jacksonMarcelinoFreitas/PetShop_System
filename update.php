@@ -108,8 +108,6 @@
             $stmt->bind_param('sii', $nomeAnimal, $idCliente, $idAnimal);
             $stmt->execute();
 
-            // var_dump($nomeAnimal, $idCliente, $idAnimal);
-
         } catch (Exception $e) {
             header("Location: animal.php?update=true&message=2&id=$id");
         }
@@ -121,24 +119,24 @@
 
         try{
             if(isset($_POST['form'])){
-                $idCliente = $_POST['idServico'];
-                $idAnimal = $_POST['nomeServico'];
-                $nomeAnimal = $_POST['valorServico'];
+                $idServico = $_POST['idServico'];
+                $nomeServico = $_POST['nomeServico'];
+                $valorServico = $_POST['valorServico'];
 
             }else{
                 header("Location: servico.php?update=true&message=3&id=$id");
             }
 
-            // $idServico = trim($connection->real_escape_string($idServico));
-            // $nomeServico = trim($connection->real_escape_string($nomeServico));
-            // $valorServico = trim($connection->real_escape_string($valorServico));
+            $idServico = trim($connection->real_escape_string($idServico));
+            $nomeServico = trim($connection->real_escape_string($nomeServico));
+            $valorServico = trim($connection->real_escape_string($valorServico));
 
             $sql = "UPDATE SERVICO SET nomeServico = ?, valorServico = ? WHERE idServico = ?";
 
             $stmt = $connection->prepare($sql);
             $stmt->bind_param('sdi', $nomeServico, $valorServico, $idServico);
             $stmt->execute();
-            
+
         } catch (Exception $e) {
             header("Location: servico.php?update=true&message=2&id=$id");
         }
