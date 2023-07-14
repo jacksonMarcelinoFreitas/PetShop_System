@@ -29,15 +29,13 @@ CREATE TABLE IF NOT EXISTS `animal` (
   CONSTRAINT `FK_idCliente_idAnimal` FOREIGN KEY (`fk_idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table pet_shop_bd.animal: ~20 rows (approximately)
+-- Dumping data for table pet_shop_bd.animal: ~21 rows (approximately)
 INSERT INTO `animal` (`idAnimal`, `nomeAnimal`, `fk_idCliente`) VALUES
 	(1, 'Gato', 1),
 	(2, 'Cachorro', 2),
 	(3, 'Coelho', 3),
 	(4, 'Hamster', 4),
-	(5, 'Peixe', 5),
 	(6, 'Gato', 6),
-	(7, 'Cachorro', 7),
 	(8, 'Coelho', 8),
 	(9, 'Hamster', 9),
 	(10, 'Peixe', 10),
@@ -59,20 +57,40 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `nomeCliente` varchar(50) DEFAULT NULL,
   `telefoneCliente` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table pet_shop_bd.cliente: ~10 rows (approximately)
 INSERT INTO `cliente` (`idCliente`, `cpfCliente`, `nomeCliente`, `telefoneCliente`) VALUES
-	(1, '15138358300', 'Kassio', '31987354853'),
+	(1, '15138358300', 'Camila', '31987354853'),
 	(2, '34543835221', 'Karen', '11989596533'),
-	(3, '35435484352', 'Felipe', '51943584350'),
+	(3, '35435484352', 'Ana', '51943584350'),
 	(4, '38438487976', 'Lucas', '11986846659'),
 	(5, '48137487849', 'Ester', '51975465586'),
 	(6, '54003664657', 'Gabriel', '19974552288'),
 	(7, '66876435475', 'Bruna', '27976843822'),
 	(8, '68431541065', 'Miguel', '11986043207'),
 	(9, '68651543560', 'Joao', '19998562340'),
-	(10, '96876656533', 'Marcela', '31989868850');
+	(10, '96876656533', 'Marcela', '31989868850'),
+	(11, '11111111111', 'João Silva', '11111111'),
+	(12, '22222222222', 'Maria Santos', '22222222'),
+	(13, '33333333333', 'Pedro Souza', '33333333'),
+	(14, '44444444444', 'Ana Oliveira', '44444444'),
+	(15, '55555555555', 'Luiza Ferreira', '55555555'),
+	(16, '66666666666', 'Carlos Almeida', '66666666'),
+	(17, '77777777777', 'Mariana Costa', '77777777'),
+	(18, '88888888888', 'Rafaela Lima', '88888888'),
+	(19, '99999999999', 'Gabriel Mendes', '99999999'),
+	(20, '00000000000', 'Laura Oliveira', '00000000'),
+	(21, '11111111112', 'Luisa Rodrigues', '11111112'),
+	(22, '22222222223', 'Matheus Pereira', '22222223'),
+	(23, '33333333334', 'Felipe Santos', '33333334'),
+	(24, '44444444445', 'Ana Clara Oliveira', '44444445'),
+	(25, '55555555556', 'Lucas Ferreira', '55555556'),
+	(26, '66666666667', 'Carla Almeida', '66666667'),
+	(27, '77777777778', 'Marcelo Costa', '77777778'),
+	(28, '88888888889', 'Rafael Lima', '88888889'),
+	(29, '99999999990', 'Gustavo Mendes', '99999990'),
+	(30, '00000000001', 'Lorena Oliveira', '00000001');
 
 -- Dumping structure for table pet_shop_bd.clienteservico
 CREATE TABLE IF NOT EXISTS `clienteservico` (
@@ -193,15 +211,14 @@ CREATE TABLE IF NOT EXISTS `servico` (
   `nomeServico` varchar(50) DEFAULT NULL,
   `valorServico` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`idServico`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table pet_shop_bd.servico: ~5 rows (approximately)
+-- Dumping data for table pet_shop_bd.servico: ~6 rows (approximately)
 INSERT INTO `servico` (`idServico`, `nomeServico`, `valorServico`) VALUES
-	(1, 'Banho e tosa', 60),
-	(2, 'Consulta veterinária', 120),
 	(3, 'Vacinação', 40),
 	(4, 'Hospedagem', 80),
-	(5, 'Tratamento contra pulgas e carrapatos', 50);
+	(5, 'Tratamento contra pulgas e carrapatos', 50),
+	(6, 'Banho', 54);
 
 -- Dumping structure for table pet_shop_bd.usuario
 CREATE TABLE IF NOT EXISTS `usuario` (
@@ -218,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`fk_idFuncionario`) REFERENCES `funcionario` (`idFuncionario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table pet_shop_bd.usuario: ~2 rows (approximately)
+-- Dumping data for table pet_shop_bd.usuario: ~0 rows (approximately)
 INSERT INTO `usuario` (`idUsuario`, `nomeUsuario`, `senhaUsuario`, `emailUsuario`, `avatarUsuario`, `administrador`, `fk_idFuncionario`) VALUES
 	(1, 'Jackson Marcelino de Freitas', '123', 'jacksonzitap.mc@gmail.com', 'src/imagens/imagens_usuarios/Arte capa e perfil Linkedin menor.png', 0, NULL),
 	(2, 'Marineide Marcelino Ceara', '123', 'marineide@gmail.com', 'src/imagens/imagens_usuarios/Foto perfil.jpeg', 0, NULL);
